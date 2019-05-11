@@ -1,0 +1,22 @@
+language: lisp
+sudo: false
+
+env:
+  global:
+    - PATH=~/.roswell/bin:$PATH
+    - ROSWELL_INSTALL_DIR=$HOME/.roswell
+    - COVERAGE_EXCLUDE=t
+  matrix:
+    - LISP=sbcl-bin COVERALLS=true SKIP_JS=true
+    - LISP=ccl-bin/1.11.5
+
+install:
+  - curl -L https://raw.githubusercontent.com/snmsts/roswell/release/scripts/install-for-ci.sh | sh
+  - ros install eshamster/ps-experiment
+  - ros install eshamster/cl-ps-ecs
+  - ros install fukamachi/rove
+  - ros -e '(ql:register-local-projects)' -q
+
+script:
+  - rove cl-web-2d-game.asd
+
