@@ -1,10 +1,10 @@
-(defpackage cl-web-2d-game/t/game-state
+(defpackage cl-csr-2d-game/t/game-state
   (:use :cl
         :rove
         :cl-ps-ecs
         :ps-experiment/t/test-utils
-        :cl-web-2d-game/core/game-state
-        :cl-web-2d-game/t/test-utils)
+        :cl-csr-2d-game/core/game-state
+        :cl-csr-2d-game/t/test-utils)
   (:import-from :ps-experiment
                 :defvar.ps+
                 :defun.ps+
@@ -12,7 +12,7 @@
                 :defstruct.ps+) 
   (:import-from :alexandria
                 :with-gensyms))
-(in-package :cl-web-2d-game/t/game-state)
+(in-package :cl-csr-2d-game/t/game-state)
 
 ;; - buffer - ;;
 

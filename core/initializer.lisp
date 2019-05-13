@@ -1,25 +1,25 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/core/initializer
+(defpackage cl-csr-2d-game/core/initializer
   (:use :cl
         :parenscript
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/core/basic-systems
-        :cl-web-2d-game/graphics/draw-model-system
-        :cl-web-2d-game/physics/collision
-        :cl-web-2d-game/physics/collision-system
-        :cl-web-2d-game/inputs/input
-        :cl-web-2d-game/utils/utils
-        :cl-web-2d-game/utils/debug/logger
-        :cl-web-2d-game/utils/debug/performance)
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/core/basic-systems
+        :cl-csr-2d-game/graphics/draw-model-system
+        :cl-csr-2d-game/physics/collision
+        :cl-csr-2d-game/physics/collision-system
+        :cl-csr-2d-game/inputs/input
+        :cl-csr-2d-game/utils/utils
+        :cl-csr-2d-game/utils/debug/logger
+        :cl-csr-2d-game/utils/debug/performance)
   (:export :start-2d-game
            :init-default-systems)
-  (:import-from :cl-web-2d-game/utils/dom-manager
+  (:import-from :cl-csr-2d-game/utils/dom-manager
                 :get-rendered-dom)
-  (:import-from :cl-web-2d-game/inputs/ui
+  (:import-from :cl-csr-2d-game/inputs/ui
                 :init-ui-system))
-(in-package :cl-web-2d-game/core/initializer)
+(in-package :cl-csr-2d-game/core/initializer)
 
 (enable-ps-experiment-syntax)
 
@@ -101,8 +101,8 @@
 ;; One means width (height) of HTML canvas. It is specified by "screen-width"
 ;; ("screen-height") in "start-2d-game".
 ;; Another means width (height) of space in camera. It is specified by "width"
-;; ("height") in "cl-web-2d-game[.camera]:init-camera".
-;; The "cl-web-2d-game[.camera]:get-screen-width(height)" returns the latter.
+;; ("height") in "cl-csr-2d-game[.camera]:init-camera".
+;; The "cl-csr-2d-game[.camera]:get-screen-width(height)" returns the latter.
 (defun.ps start-2d-game (&key screen-width screen-height
                               camera
                               rendered-dom
@@ -113,7 +113,7 @@
                               (init-function (lambda (scene) nil))
                               (update-function (lambda () nil)))
   "Entry point for starting game.
-We assume that the camera is initalized using cl-web-2d-game[.camera]:init-camera."
+We assume that the camera is initalized using cl-csr-2d-game[.camera]:init-camera."
   (let* ((scene (new (#j.THREE.Scene#)))
          (renderer (new #j.THREE.WebGLRenderer#)))
     (setf (get-rendered-dom) rendered-dom)

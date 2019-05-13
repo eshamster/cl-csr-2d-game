@@ -1,11 +1,11 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/graphics/texture
+(defpackage cl-csr-2d-game/graphics/texture
   (:use :cl
         :parenscript
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/utils/debug/logger)
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/utils/debug/logger)
   (:export :texture-2d
            :texture-2d-p
            :texture-2d-material
@@ -16,7 +16,7 @@
 
            :get-texture-2d-width
            :get-texture-2d-height))
-(in-package :cl-web-2d-game/graphics/texture)
+(in-package :cl-csr-2d-game/graphics/texture)
 
 (enable-ps-experiment-syntax)
 

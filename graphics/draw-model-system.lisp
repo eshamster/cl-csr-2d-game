@@ -1,12 +1,12 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/graphics/draw-model-system
+(defpackage cl-csr-2d-game/graphics/draw-model-system
   (:use :cl
         :cl-ppcre
         :ps-experiment
         :cl-ps-ecs
         :parenscript
-        :cl-web-2d-game/utils/calc)
-  (:import-from :cl-web-2d-game/core/basic-components
+        :cl-csr-2d-game/utils/calc)
+  (:import-from :cl-csr-2d-game/core/basic-components
                 :point-2d
                 :point-2d-x
                 :point-2d-y
@@ -25,7 +25,7 @@
            :init-draw-model-system
            :update-model-2d
            :find-model-2d-by-label))
-(in-package :cl-web-2d-game/graphics/draw-model-system)
+(in-package :cl-csr-2d-game/graphics/draw-model-system)
 
 (enable-ps-experiment-syntax)
 

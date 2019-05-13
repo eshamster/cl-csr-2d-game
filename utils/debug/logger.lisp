@@ -1,5 +1,5 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/utils/debug/logger
+(defpackage cl-csr-2d-game/utils/debug/logger
   (:use :cl
         :cl-ppcre
         :ps-experiment
@@ -16,7 +16,7 @@
            :*console-log-function*
            :set-console-log-level
            :console-log))
-(in-package :cl-web-2d-game/utils/debug/logger)
+(in-package :cl-csr-2d-game/utils/debug/logger)
 
 (enable-ps-experiment-syntax)
 

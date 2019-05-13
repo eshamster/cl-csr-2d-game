@@ -1,11 +1,11 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/physics/collision
+(defpackage cl-csr-2d-game/physics/collision
   (:use :cl
         :parenscript
         :cl-ps-ecs
         :ps-experiment
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/utils/calc)
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/utils/calc)
   (:import-from :ps-experiment/common-macros
                 :with-slots-pair)
   (:export :collide-entities-p
@@ -37,7 +37,7 @@
 
            :update-bounding-box
            :judge-collision-target-tags))
-(in-package :cl-web-2d-game/physics/collision)
+(in-package :cl-csr-2d-game/physics/collision)
 
 #|
 Note: col-xx-vec takes 'point' and 'offset' for each physic. The 'point' means a global point of an entity that has the physic. Then, the 'offset' means a local offset in the entity.

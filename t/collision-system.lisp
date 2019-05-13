@@ -1,20 +1,20 @@
-(defpackage cl-web-2d-game/t/collision-system
+(defpackage cl-csr-2d-game/t/collision-system
   (:use :cl
         :rove
         :cl-ps-ecs
         :ps-experiment/t/test-utils 
-        :cl-web-2d-game/physics/collision
-        :cl-web-2d-game/physics/collision-system
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/utils/calc
-        :cl-web-2d-game/t/test-utils)
+        :cl-csr-2d-game/physics/collision
+        :cl-csr-2d-game/physics/collision-system
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/utils/calc
+        :cl-csr-2d-game/t/test-utils)
   (:import-from :cl-ps-ecs/t/test-utils
                 :with-ecs-env)
   (:import-from :ps-experiment
                 :defun.ps+
                 :defmacro.ps+
                 :defvar.ps+))
-(in-package :cl-web-2d-game/t/collision-system)
+(in-package :cl-csr-2d-game/t/collision-system)
 
 ;; --- utils --- ;;
 

@@ -1,4 +1,4 @@
-(defpackage cl-web-2d-game/utils/stage-generator
+(defpackage cl-csr-2d-game/utils/stage-generator
   (:use :cl
         :ps-experiment
         :parenscript)
@@ -9,7 +9,7 @@
   (:import-from :alexandria
                 :with-gensyms
                 :symbolicate))
-(in-package :cl-web-2d-game/utils/stage-generator)
+(in-package :cl-csr-2d-game/utils/stage-generator)
 
 ;; Note: This is only alpha quality.
 

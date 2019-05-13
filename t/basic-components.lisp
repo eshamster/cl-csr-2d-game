@@ -1,15 +1,15 @@
-(defpackage cl-web-2d-game/t/basic-components
+(defpackage cl-csr-2d-game/t/basic-components
   (:use :cl
         :rove
         :cl-ps-ecs
         :ps-experiment/t/test-utils
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/t/test-utils)
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/t/test-utils)
   (:import-from :ps-experiment
                 :defmacro.ps+
                 :defun.ps+
                 :defvar.ps+))
-(in-package :cl-web-2d-game/t/basic-components)
+(in-package :cl-csr-2d-game/t/basic-components)
 
 ;; --- test --- ;;
 

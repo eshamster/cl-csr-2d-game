@@ -1,11 +1,11 @@
-(defpackage cl-web-2d-game/t/stage-generator
+(defpackage cl-csr-2d-game/t/stage-generator
   (:use :cl
         :rove
         :ps-experiment/t/test-utils
-        :cl-web-2d-game/utils/stage-generator)
+        :cl-csr-2d-game/utils/stage-generator)
   (:import-from :ps-experiment
                 :defparameter.ps+))
-(in-package :cl-web-2d-game/t/stage-generator)
+(in-package :cl-csr-2d-game/t/stage-generator)
 
 ;; --- test --- ;;
 

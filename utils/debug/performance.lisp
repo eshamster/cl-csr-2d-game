@@ -1,5 +1,5 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/utils/debug/performance
+(defpackage cl-csr-2d-game/utils/debug/performance
   (:use :cl
         :parenscript
         :ps-experiment
@@ -9,7 +9,7 @@
   (:export :with-trace
            :with-performance
            :dump-performance-counter))
-(in-package :cl-web-2d-game/utils/debug/performance)
+(in-package :cl-csr-2d-game/utils/debug/performance)
 
 (enable-ps-experiment-syntax)
 

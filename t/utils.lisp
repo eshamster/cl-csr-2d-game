@@ -1,11 +1,11 @@
-(defpackage cl-web-2d-game/t/utils
+(defpackage cl-csr-2d-game/t/utils
   (:use :cl
         :rove
         :cl-ps-ecs
-        :cl-web-2d-game/utils/utils
-        :cl-web-2d-game/t/test-utils
+        :cl-csr-2d-game/utils/utils
+        :cl-csr-2d-game/t/test-utils
         :ps-experiment/t/test-utils))
-(in-package :cl-web-2d-game/t/utils)
+(in-package :cl-csr-2d-game/t/utils)
 
 ;; --- test --- ;;
 

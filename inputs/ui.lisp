@@ -1,10 +1,10 @@
-(defpackage cl-web-2d-game/inputs/ui
+(defpackage cl-csr-2d-game/inputs/ui
   (:use :cl
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/inputs/input
-        :cl-web-2d-game/physics/collision)
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/inputs/input
+        :cl-csr-2d-game/physics/collision)
   (:export :init-ui-system
            :ui-component
            :make-ui-component
@@ -14,9 +14,9 @@
            :ui-component-on-mouse-leave
            :ui-component-on-click-up
            :ui-component-on-click-down)
-  (:import-from :cl-web-2d-game/utils/calc
+  (:import-from :cl-csr-2d-game/utils/calc
                 :calc-global-point))
-(in-package :cl-web-2d-game/inputs/ui)
+(in-package :cl-csr-2d-game/inputs/ui)
 
 (defstruct.ps+ (ui-component (:include ecs-component))
   on-click-down

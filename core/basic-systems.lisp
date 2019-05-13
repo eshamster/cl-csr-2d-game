@@ -1,21 +1,21 @@
-(defpackage cl-web-2d-game/core/basic-systems
+(defpackage cl-csr-2d-game/core/basic-systems
   (:use :cl
         :cl-ppcre
         :ps-experiment
         :cl-ps-ecs
         :parenscript
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/graphics/animation
-        :cl-web-2d-game/physics/collision
-        :cl-web-2d-game/utils/debug/performance)
-  (:import-from :cl-web-2d-game/utils/calc
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/graphics/animation
+        :cl-csr-2d-game/physics/collision
+        :cl-csr-2d-game/utils/debug/performance)
+  (:import-from :cl-csr-2d-game/utils/calc
                 :incf-vector-2d)
   (:export :script-system
            :make-script-system
            :animation-system
            :make-animation-system
            :make-simple-move-system))
-(in-package :cl-web-2d-game/core/basic-systems)
+(in-package :cl-csr-2d-game/core/basic-systems)
 
 (enable-ps-experiment-syntax)
 

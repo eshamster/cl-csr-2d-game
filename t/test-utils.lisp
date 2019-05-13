@@ -1,8 +1,8 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/t/test-utils
+(defpackage cl-csr-2d-game/t/test-utils
   (:use :cl
         :prove
-        :cl-web-2d-game/core/basic-components)
+        :cl-csr-2d-game/core/basic-components)
   (:export :within
            :within-angle
            :within-length
@@ -13,7 +13,7 @@
   (:import-from :ps-experiment
                 :defun.ps+
                 :defvar.ps+))
-(in-package :cl-web-2d-game/t/test-utils)
+(in-package :cl-csr-2d-game/t/test-utils)
 
 ;; --- not clasified --- ;;
 

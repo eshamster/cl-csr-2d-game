@@ -1,19 +1,19 @@
-(defpackage cl-web-2d-game/t/basic-generator
+(defpackage cl-csr-2d-game/t/basic-generator
   (:use :cl
         :rove
         :ps-experiment/t/test-utils
-        :cl-web-2d-game/utils/basic-generator
-        :cl-web-2d-game/utils/stage-generator)
-  (:import-from :cl-web-2d-game/core/basic-components
+        :cl-csr-2d-game/utils/basic-generator
+        :cl-csr-2d-game/utils/stage-generator)
+  (:import-from :cl-csr-2d-game/core/basic-components
                 :make-point-2d
                 :make-speed-2d)
-  (:import-from :cl-web-2d-game/t/test-utils
+  (:import-from :cl-csr-2d-game/t/test-utils
                 :is-point
                 :is-vector)
   (:import-from :ps-experiment
                 :defmacro.ps+
                 :defparameter.ps+))
-(in-package :cl-web-2d-game/t/basic-generator)
+(in-package :cl-csr-2d-game/t/basic-generator)
 
 (defparameter.ps+ *buf* nil)
 

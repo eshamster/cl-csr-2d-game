@@ -1,16 +1,16 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/physics/collision-system
+(defpackage cl-csr-2d-game/physics/collision-system
   (:use :cl
         :cl-ppcre
         :ps-experiment
         :cl-ps-ecs
         :parenscript
-        :cl-web-2d-game/physics/collision
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/graphics/2d-geometry
-        :cl-web-2d-game/graphics/draw-model-system
-        :cl-web-2d-game/utils/calc
-        :cl-web-2d-game/utils/debug/performance)
+        :cl-csr-2d-game/physics/collision
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/graphics/2d-geometry
+        :cl-csr-2d-game/graphics/draw-model-system
+        :cl-csr-2d-game/utils/calc
+        :cl-csr-2d-game/utils/debug/performance)
   (:import-from :ps-experiment/common-macros
                 :with-slots-pair)
   (:export :collision-system
@@ -18,7 +18,7 @@
            :setf-collider-model-enable
            :setf-collider-model-depth
            :setf-collider-model-color))
-(in-package :cl-web-2d-game/physics/collision-system)
+(in-package :cl-csr-2d-game/physics/collision-system)
 
 (enable-ps-experiment-syntax)
 

@@ -1,20 +1,20 @@
 (in-package :cl-user)
-(defpackage :cl-web-2d-game-sample
+(defpackage :cl-csr-2d-game-sample
   (:use :cl
         :cl-markup)
   (:export :start
            :stop)
-  (:import-from :cl-web-2d-game
+  (:import-from :cl-csr-2d-game
                 :make-src-list-for-script-tag
                 :ensure-js-files)
-  (:import-from :cl-web-2d-game-sample.common
+  (:import-from :cl-csr-2d-game-sample.common
                 :make-js-main-file))
-(in-package :cl-web-2d-game-sample)
+(in-package :cl-csr-2d-game-sample)
 
 (defvar *sample-dir*
   (merge-pathnames "sample/"
                    (asdf:component-pathname
-                    (asdf:find-system :cl-web-2d-game))))
+                    (asdf:find-system :cl-csr-2d-game))))
 
 (defvar *js-relative-dir* "js/")
 
@@ -36,14 +36,14 @@
         (declare (ignore params))
         (with-cl-markup
           (html5 (:head
-                  (:title "Cl-Web-2d-Game samples")
+                  (:title "Cl-Csr-2d-Game samples")
                   (:link :rel "stylesheet" :type "text/css" :href "css/style.css" nil))
                  (:body
                   (:div :id "panel"
                         (:div
                          :id "panel-content"
                          (:div
-                          (:a :href "https://github.com/eshamster/cl-web-2d-game" "Cl-Web-2d-Game")
+                          (:a :href "https://github.com/eshamster/cl-csr-2d-game" "Cl-Csr-2d-Game")
                           " / sample")
                          (:ul
                           :id "sample-list"
@@ -62,7 +62,7 @@
                                              :target "viewer"
                                              name)
                                          " ("
-                                         (:a :href (format nil "https://github.com/eshamster/cl-web-2d-game/blob/master/sample/sample-~A.lisp" name)
+                                         (:a :href (format nil "https://github.com/eshamster/cl-csr-2d-game/blob/master/sample/sample-~A.lisp" name)
                                              :target "_blank"
                                              "code")
                                          ")"))))))

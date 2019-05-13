@@ -1,4 +1,4 @@
-(defpackage cl-web-2d-game/core/game-state
+(defpackage cl-csr-2d-game/core/game-state
   (:use :cl
         :ps-experiment)
   (:export :process-game-state
@@ -26,7 +26,7 @@
                 :process)
   (:import-from :alexandria
                 :with-gensyms))
-(in-package :cl-web-2d-game/core/game-state)
+(in-package :cl-csr-2d-game/core/game-state)
 
 (defstruct.ps+ game-state
   (start-process (lambda (_this) (declare (ignore _this)) t))

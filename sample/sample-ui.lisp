@@ -1,12 +1,12 @@
 (in-package :cl-user)
-(defpackage :cl-web-2d-game-sample.sample-ui
+(defpackage :cl-csr-2d-game-sample.sample-ui
   (:use :cl
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game)
-  (:import-from :cl-web-2d-game-sample.common
+        :cl-csr-2d-game)
+  (:import-from :cl-csr-2d-game-sample.common
                 :use-this-package-as-sample))
-(in-package :cl-web-2d-game-sample.sample-ui)
+(in-package :cl-csr-2d-game-sample.sample-ui)
 
 (use-this-package-as-sample)
 

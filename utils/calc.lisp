@@ -1,13 +1,13 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/utils/calc
+(defpackage cl-csr-2d-game/utils/calc
   (:use :cl
         :parenscript
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game/core/basic-components)
+        :cl-csr-2d-game/core/basic-components)
   (:import-from :ps-experiment/common-macros
                 :with-slots-pair)
-  (:import-from :cl-web-2d-game/utils/utils
+  (:import-from :cl-csr-2d-game/utils/utils
                 :def-obsoleted-alias.ps+)
   (:export :vector-2d-abs
            :vector-2d-angle
@@ -58,7 +58,7 @@
            :incf-vector
            :decf-vector
            :add-vector-2d))
-(in-package :cl-web-2d-game/utils/calc)
+(in-package :cl-csr-2d-game/utils/calc)
 
 (enable-ps-experiment-syntax)
 

@@ -1,11 +1,11 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/utils/dom-manager
+(defpackage cl-csr-2d-game/utils/dom-manager
   (:use :cl
         :ps-experiment
         :parenscript)
   (:export :get-managed-dom
            :get-rendered-dom))
-(in-package :cl-web-2d-game/utils/dom-manager)
+(in-package :cl-csr-2d-game/utils/dom-manager)
 
 (enable-ps-experiment-syntax)
 

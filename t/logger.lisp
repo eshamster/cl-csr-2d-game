@@ -1,23 +1,23 @@
-(defpackage cl-web-2d-game/t/logger
+(defpackage cl-csr-2d-game/t/logger
   (:use :cl
         :rove
         :cl-ps-ecs
         :ps-experiment/t/test-utils
-        :cl-web-2d-game/utils/debug/logger
-        :cl-web-2d-game/t/test-utils)
+        :cl-csr-2d-game/utils/debug/logger
+        :cl-csr-2d-game/t/test-utils)
   (:import-from :alexandria
                 :with-gensyms)
   (:import-from :ps-experiment
                 :defmacro.ps+
                 :defun.ps+
                 :defvar.ps+))
-(in-package :cl-web-2d-game/t/logger)
+(in-package :cl-csr-2d-game/t/logger)
 
 ;; --- prepare --- ;;
 
 (eval-when (:load-toplevel :execute :compile-toplevel)
   (defun.ps+ current-log-level ()
-    'cl-web-2d-game/utils/debug/logger::*current-console-log-level*))
+    'cl-csr-2d-game/utils/debug/logger::*current-console-log-level*))
 
 (defmacro.ps+ with-logger-env (() &body body)
   (with-gensyms (pre-log-function pre-log-level)

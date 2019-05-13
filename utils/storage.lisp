@@ -1,4 +1,4 @@
-(defpackage cl-web-2d-game/utils/storage
+(defpackage cl-csr-2d-game/utils/storage
   (:use :cl
         :parenscript
         :ps-experiment)
@@ -10,7 +10,7 @@
            :clear-kvs-all)
   (:import-from :alexandria
                 :with-gensyms))
-(in-package :cl-web-2d-game/utils/storage)
+(in-package :cl-csr-2d-game/utils/storage)
 
 #|
 Experimental key-value storage using Web Storage (localStorage)

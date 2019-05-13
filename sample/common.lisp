@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :cl-web-2d-game-sample.common
+(defpackage :cl-csr-2d-game-sample.common
   (:use :cl)
   (:export :use-this-package-as-sample
            :make-js-main-file))
-(in-package :cl-web-2d-game-sample.common)
+(in-package :cl-csr-2d-game-sample.common)
 
 (defvar *sample-package-table (make-hash-table))
 
@@ -16,11 +16,11 @@
         (pse:with-use-ps-pack (:this)
           (let ((width 800)
                 (height 600))
-            (cl-web-2d-game:start-2d-game
+            (cl-csr-2d-game:start-2d-game
              :screen-width width
              :screen-height height
              :resize-to-screen-p t
-             :camera (cl-web-2d-game:init-camera 0 0 width height)
+             :camera (cl-csr-2d-game:init-camera 0 0 width height)
              :rendered-dom (document.query-selector "#renderer")
              :stats-dom (document.query-selector "#stats-output")
              :monitoring-log-dom (document.query-selector "#monitor")
@@ -35,6 +35,6 @@
                        :if-exists :supersede
                        :if-does-not-exist :create)
     (funcall (intern "OUTPUT-JS-CODE"
-                     (find-package (format nil "CL-WEB-2D-GAME-SAMPLE.SAMPLE-~A"
+                     (find-package (format nil "CL-CSR-2D-GAME-SAMPLE.SAMPLE-~A"
                                            (string-upcase name))))
              out)))

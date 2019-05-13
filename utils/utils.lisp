@@ -1,5 +1,5 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/utils/utils
+(defpackage cl-csr-2d-game/utils/utils
   (:use :cl
         :parenscript
         :ps-experiment
@@ -11,7 +11,7 @@
            :def-obsoleted-alias.ps+)
   (:import-from :alexandria
                 :with-gensyms))
-(in-package :cl-web-2d-game/utils/utils)
+(in-package :cl-csr-2d-game/utils/utils)
 
 (enable-ps-experiment-syntax)
 

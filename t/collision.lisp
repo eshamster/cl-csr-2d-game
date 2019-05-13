@@ -1,15 +1,15 @@
-(defpackage cl-web-2d-game/t/collision
+(defpackage cl-csr-2d-game/t/collision
   (:use :cl
         :rove
         :cl-ps-ecs
         :ps-experiment/t/test-utils
-        :cl-web-2d-game/physics/collision
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/utils/calc
-        :cl-web-2d-game/t/test-utils)
+        :cl-csr-2d-game/physics/collision
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/utils/calc
+        :cl-csr-2d-game/t/test-utils)
   (:import-from :ps-experiment
                 :defun.ps+))
-(in-package :cl-web-2d-game/t/collision)
+(in-package :cl-csr-2d-game/t/collision)
 
 ;; --- test --- ;;
 
@@ -108,7 +108,7 @@
       (ok (find :b tags))
       (ng (find :not-exist tags)))))
 
-(import 'cl-web-2d-game/physics/collision::col-two-bounding-box-p)
+(import 'cl-csr-2d-game/physics/collision::col-two-bounding-box-p)
 
 (deftest.ps+ for-bounding-box-2d
   (testing "Test col-two-bounding-box-p"

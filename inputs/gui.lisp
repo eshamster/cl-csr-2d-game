@@ -1,5 +1,5 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/inputs/gui
+(defpackage cl-csr-2d-game/inputs/gui
   (:use :cl
         :parenscript
         :ps-experiment
@@ -11,7 +11,7 @@
            :add-panel-number
            :add-panel-button
            :with-gui-default-folder))
-(in-package :cl-web-2d-game/inputs/gui)
+(in-package :cl-csr-2d-game/inputs/gui)
 
 (enable-ps-experiment-syntax)
 

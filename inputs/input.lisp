@@ -1,10 +1,10 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/inputs/input
+(defpackage cl-csr-2d-game/inputs/input
   (:use :cl
         :cl-ppcre
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game/core/camera
+        :cl-csr-2d-game/core/camera
         :parenscript)
   (:export :add-mouse-down-callback
            :add-mouse-up-callback
@@ -51,17 +51,17 @@
            :is-key-down-now
            :is-key-up
            :is-key-up-now)
-  (:import-from :cl-web-2d-game/core/basic-components
+  (:import-from :cl-csr-2d-game/core/basic-components
                 :make-vector-2d
                 :vector-2d-x
                 :vector-2d-y)
-  (:import-from :cl-web-2d-game/utils/dom-manager
+  (:import-from :cl-csr-2d-game/utils/dom-manager
                 :get-rendered-dom)
-  (:import-from :cl-web-2d-game/utils/utils
+  (:import-from :cl-csr-2d-game/utils/utils
                 :def-obsoleted-alias.ps+)
   (:import-from :alexandria
                 :with-gensyms))
-(in-package :cl-web-2d-game/inputs/input)
+(in-package :cl-csr-2d-game/inputs/input)
 
 (enable-ps-experiment-syntax)
 

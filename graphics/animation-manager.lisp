@@ -1,20 +1,20 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/graphics/animation-manager
+(defpackage cl-csr-2d-game/graphics/animation-manager
   (:use :cl
         :parenscript
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game/graphics/2d-geometry
-        :cl-web-2d-game/graphics/animation
-        :cl-web-2d-game/graphics/texture
-        :cl-web-2d-game/graphics/draw-model-system
-        :cl-web-2d-game/utils/debug/logger)
+        :cl-csr-2d-game/graphics/2d-geometry
+        :cl-csr-2d-game/graphics/animation
+        :cl-csr-2d-game/graphics/texture
+        :cl-csr-2d-game/graphics/draw-model-system
+        :cl-csr-2d-game/utils/debug/logger)
   (:export :animation-manager
            :init-animation-manager
            :switch-current-animation
            :reverse-current-animation
            :register-animation))
-(in-package :cl-web-2d-game/graphics/animation-manager)
+(in-package :cl-csr-2d-game/graphics/animation-manager)
 
 (enable-ps-experiment-syntax)
 

@@ -1,13 +1,13 @@
 (in-package :cl-user)
-(defpackage cl-web-2d-game/graphics/2d-geometry
+(defpackage cl-csr-2d-game/graphics/2d-geometry
   (:use :cl
         :cl-ppcre
         :parenscript
         :ps-experiment
         :cl-ps-ecs
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/graphics/font
-        :cl-web-2d-game/graphics/texture)
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/graphics/font
+        :cl-csr-2d-game/graphics/texture)
   (:export :make-line
            :make-lines
            :make-solid-rect
@@ -27,7 +27,7 @@
            :get-mesh-width
            :get-mesh-height
            :get-mesh-size))
-(in-package :cl-web-2d-game/graphics/2d-geometry)
+(in-package :cl-csr-2d-game/graphics/2d-geometry)
 
 (enable-ps-experiment-syntax)
 

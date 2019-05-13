@@ -1,16 +1,16 @@
-(defpackage cl-web-2d-game/t/calc
+(defpackage cl-csr-2d-game/t/calc
   (:use :cl
         :rove
         :cl-ps-ecs
         :ps-experiment/t/test-utils
-        :cl-web-2d-game/core/basic-components
-        :cl-web-2d-game/utils/calc
-        :cl-web-2d-game/t/test-utils)
+        :cl-csr-2d-game/core/basic-components
+        :cl-csr-2d-game/utils/calc
+        :cl-csr-2d-game/t/test-utils)
   (:import-from :ps-experiment
                 :defmacro.ps+
                 :defun.ps+
                 :defvar.ps+))
-(in-package :cl-web-2d-game/t/calc)
+(in-package :cl-csr-2d-game/t/calc)
 
 ;; --- utils --- ;;
 
