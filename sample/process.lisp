@@ -1,10 +1,7 @@
-(defpackage sample-cl-csr-2d-game/game-loop
+(defpackage sample-cl-csr-2d-game/process
   (:use :cl)
-  (:export :start-sample-game-loop
-           :stop-sample-game-loop)
+  (:export :update-sample)
   (:import-from :proto-cl-client-side-rendering
-                :start-game-loop
-                :stop-game-loop
                 :draw-rect
                 :draw-circle
                 :log-console
@@ -14,15 +11,7 @@
                 :key-down-p
                 :mouse-down-p
                 :get-mouse-pos))
-(in-package :sample-cl-csr-2d-game/game-loop)
-
-(defun start-sample-game-loop ()
-  (start-game-loop :update-func (lambda () (update))))
-
-(defun stop-sample-game-loop ()
-  (stop-game-loop))
-
-;; --- internal --- ;;
+(in-package :sample-cl-csr-2d-game/process)
 
 (defvar *temp-counter* 0)
 
@@ -30,7 +19,7 @@
 (defvar *temp-y* 300)
 (defparameter *temp-speed* 10)
 
-(defun update ()
+(defun update-sample ()
   (incf *temp-counter*)
   (let ((id 0))
     (draw-circle :id (incf id)

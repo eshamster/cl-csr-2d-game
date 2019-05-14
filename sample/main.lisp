@@ -2,5 +2,5 @@
   (:nicknames :sample-cl-csr-2d-game)
   (:use :cl
         :sample-cl-csr-2d-game/server)
-  (:export :start
-           :stop))
+  (:export :start-sample
+           :stop-sample))

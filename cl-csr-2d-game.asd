@@ -19,7 +19,8 @@
                :ps-experiment
                :dexador
                :cl-ps-ecs
-               :cl-csr-2d-game/main) 
+               :cl-csr-2d-game/main
+               :proto-cl-client-side-rendering)
   :description "A library to create 2d game using Parenscript and three.js"
   :long-description
   #.(with-open-file (stream (merge-pathnames

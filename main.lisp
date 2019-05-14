@@ -16,6 +16,7 @@
                  :cl-csr-2d-game/core/game-state
                  ;; Note: The camera is maybe not "core".
                  :cl-csr-2d-game/core/camera
+                 :cl-csr-2d-game/core/server
 
                  :cl-csr-2d-game/graphics/texture
                  :cl-csr-2d-game/graphics/animation
