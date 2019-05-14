@@ -5,6 +5,10 @@
            :stop
            :start-csr-game-loop
            :stop-csr-game-loop)
+  (:import-from :cl-ps-ecs
+                :ecs-main)
+  (:import-from :cl-csr-2d-game/core/initializer
+                :init-default-systems)
   (:import-from :proto-cl-client-side-rendering
                 :start-game-loop
                 :stop-game-loop
@@ -18,10 +22,13 @@
 (defun start (&key
                 (port 5000)
                 root-dir
+                (init-func (lambda ()))
                 (update-func (lambda ())))
   (assert root-dir)
   (stop)
-  (start-csr-game-loop :update-func update-func)
+  (init-default-systems)
+  (start-csr-game-loop :init-func init-func
+                       :update-func update-func)
   (let ((resource-dir (merge-pathnames "resource/" root-dir)))
     (init-ningle-app :resource-dir resource-dir)
     (setf *server*
@@ -62,8 +69,11 @@
 
 ;; --- game loop --- ;;
 
-(defun start-csr-game-loop (&key update-func)
-  (start-game-loop :update-func update-func))
+(defun start-csr-game-loop (&key init-func update-func)
+  (funcall init-func)
+  (start-game-loop :update-func (lambda ()
+                                  (ecs-main)
+                                  (funcall update-func))))
 
 (defun stop-csr-game-loop ()
   (stop-game-loop))

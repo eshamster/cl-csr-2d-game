@@ -41,25 +41,28 @@
   (when *stats*
     (*stats*.update)))
 
-(defun.ps+ init-default-systems (&key scene
-                                      (script-system t)
-                                      (draw-system t)
-                                      (animation-system t)
+(defun.ps+ init-default-systems (&key (script-system t)
+                                      ; (draw-system t)
+                                      ; (animation-system t)
                                       (collision-system t)
                                       (simple-move-system t)
-                                      (ui-system t))
+                                      ; (ui-system t)
+                                      )
   (when script-system
     (register-ecs-system "script2d" (make-script-system)))
   (when collision-system
     (register-ecs-system "collision" (make-collision-system)))
+  (when simple-move-system
+    (register-ecs-system "simple-move" (make-simple-move-system)))
+  #|
   (when animation-system
     (register-ecs-system "animation" (make-animation-system)))
   (when draw-system
     (register-ecs-system "draw2d" (init-draw-model-system scene)))
-  (when simple-move-system
-    (register-ecs-system "simple-move" (make-simple-move-system)))
   (when ui-system
-    (register-ecs-system "ui" (init-ui-system))))
+    (register-ecs-system "ui" (init-ui-system)))
+  |#
+  )
 
 (defvar.ps+ *resize-to-screen-p* nil)
 

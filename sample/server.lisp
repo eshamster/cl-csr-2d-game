@@ -7,6 +7,7 @@
                 :start
                 :stop)
   (:import-from :sample-cl-csr-2d-game/process
+                :init-sample
                 :update-sample)
   (:import-from :proto-cl-client-side-rendering
                 :ensure-js-files
@@ -18,6 +19,7 @@
   (start :port port
          :root-dir (asdf:component-pathname
                     (asdf:find-system :sample-cl-csr-2d-game))
+         :init-func (lambda () (init-sample))
          :update-func (lambda () (update-sample))))
 
 (defun stop-sample ()

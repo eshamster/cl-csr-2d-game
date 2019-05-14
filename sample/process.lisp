@@ -1,6 +1,13 @@
 (defpackage sample-cl-csr-2d-game/process
   (:use :cl)
-  (:export :update-sample)
+  (:export :update-sample
+           :init-sample)
+  (:import-from :cl-csr-2d-game
+                :make-script-2d)
+  (:import-from :cl-ps-ecs
+                :make-ecs-entity
+                :add-ecs-entity
+                :add-ecs-component-list)
   (:import-from :proto-cl-client-side-rendering
                 :draw-rect
                 :draw-circle
@@ -18,6 +25,15 @@
 (defvar *temp-x* 100)
 (defvar *temp-y* 300)
 (defparameter *temp-speed* 10)
+
+(defun init-sample ()
+  (let ((entity (make-ecs-entity)))
+    (add-ecs-component-list
+     entity
+     (make-script-2d :func (lambda (entity)
+                             (declare (ignore entity))
+                             (log-console :message (format nil "test log: ~D" *temp-counter*)))))
+    (add-ecs-entity entity)))
 
 (defun update-sample ()
   (incf *temp-counter*)
@@ -48,7 +64,6 @@
                :width 20 :height (+ 40 (* 20 (sin (/ *temp-counter* 2))))
                :rotate 0
                :color #xff00ff)
-    ;; (log-console :message "test") ; try logging
     (try-keyboard)
     (try-mouse)
     (draw-circle :id (incf id)
