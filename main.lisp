@@ -26,9 +26,8 @@
                  :cl-csr-2d-game/graphics/font
                  :cl-csr-2d-game/graphics/text-area
 
-                 :cl-csr-2d-game/inputs/input
                  :cl-csr-2d-game/inputs/gui
-                 :cl-csr-2d-game/inputs/ui
+                 ;; :cl-csr-2d-game/inputs/ui
 
                  :cl-csr-2d-game/physics/collision
                  :cl-csr-2d-game/physics/collision-system

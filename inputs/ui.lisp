@@ -18,6 +18,8 @@
                 :calc-global-point))
 (in-package :cl-csr-2d-game/inputs/ui)
 
+;; TODO: Rewrite according to CSR input style
+
 (defstruct.ps+ (ui-component (:include ecs-component))
   on-click-down
   on-click-up
