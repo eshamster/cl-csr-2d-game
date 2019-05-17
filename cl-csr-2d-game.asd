@@ -17,7 +17,6 @@
   :license "LLGPL"
   :depends-on (:parenscript
                :ps-experiment
-               :dexador
                :cl-ps-ecs
                :cl-csr-2d-game/main
                :proto-cl-client-side-rendering)
