@@ -7,8 +7,6 @@
         :cl-csr-2d-game/core/basic-components)
   (:import-from :ps-experiment/common-macros
                 :with-slots-pair)
-  (:import-from :cl-csr-2d-game/utils/utils
-                :def-obsoleted-alias.ps+)
   (:export :vector-2d-abs
            :vector-2d-angle
            :setf-vector-2d-abs
@@ -48,16 +46,7 @@
            :adjust-to-target
            :rotate-to-target-angle
            :lerp-scalar
-           :lerp-vector-2d
-
-           ;; obsoleted
-           :vector-abs
-           :vector-angle
-           :setf-vector-abs
-           :setf-vector-angle
-           :incf-vector
-           :decf-vector
-           :add-vector-2d))
+           :lerp-vector-2d))
 (in-package :cl-csr-2d-game/utils/calc)
 
 (enable-ps-experiment-syntax)
@@ -66,8 +55,6 @@
   (with-slots (x y) vector
     (sqrt (+ (expt x 2)
              (expt y 2)))))
-
-(def-obsoleted-alias.ps+ vector-abs vector-2d-abs)
 
 (defun.ps+ vector-2d-angle (vector)
   "Return the angle of the vector. The range is (-PI, PI].
@@ -81,34 +68,24 @@ The angle of the vector (1, 0) is 0 and the rotation is counterclockwize."
                (* PI (if (< y 0) -1 1))
                0)))))
 
-(def-obsoleted-alias.ps+ vector-angle vector-2d-angle)
-
 (defun.ps+ setf-vector-2d-abs-angle (vector abs angle)
   (setf (vector-2d-x vector) (* abs (cos angle))
         (vector-2d-y vector) (* abs (sin angle)))
   vector)
 
-(def-obsoleted-alias.ps+ setf-vector-abs-angle setf-vector-2d-abs-angle)
-
 (defun.ps+ setf-vector-2d-abs (vector abs)
   "Set the absolute length of the vector keeping its angle."
   (setf-vector-2d-abs-angle vector abs (vector-2d-angle vector)))
 
-(def-obsoleted-alias.ps+ setf-vector-abs setf-vector-2d-abs)
-
 (defun.ps+ setf-vector-2d-angle (vector angle)
   "Set the angle of the vector keeping its length."
   (setf-vector-2d-abs-angle vector (vector-2d-abs vector) angle))
-
-(def-obsoleted-alias.ps+ setf-vector-angle setf-vector-2d-angle)
 
 (defun.ps+ incf-vector-2d (target-vec diff-vec)
   "Destructively increase vector"
   (incf (vector-2d-x target-vec) (vector-2d-x diff-vec))
   (incf (vector-2d-y target-vec) (vector-2d-y diff-vec))
   target-vec)
-
-(def-obsoleted-alias.ps+ incf-vector incf-vector-2d)
 
 ;; Note: Prefer "+-vecotr-2d" but it is converted to "vector2d" by ps:ps...
 (defun.ps+ add-vector-2d (&rest vectors)
@@ -124,8 +101,6 @@ The angle of the vector (1, 0) is 0 and the rotation is counterclockwize."
   (decf (vector-2d-x target-vec) (vector-2d-x diff-vec))
   (decf (vector-2d-y target-vec) (vector-2d-y diff-vec))
   target-vec)
-
-(def-obsoleted-alias.ps+ decf-vector decf-vector-2d)
 
 ;; Note: Prefer "--vecotr-2d" but it is converted to "vector2d" by ps:ps...
 (defun.ps+ sub-vector-2d (&rest vectors)

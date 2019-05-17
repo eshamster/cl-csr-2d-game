@@ -4,7 +4,7 @@
         :cl-ps-ecs)
   (:export :convert-to-layered-hash
            :get-layered-hash
-           :def-obsoleted-alias.ps+)
+           :def-obsoleted-alias)
   (:import-from :alexandria
                 :with-gensyms))
 (in-package :cl-csr-2d-game/utils/utils)
@@ -68,7 +68,7 @@ Example:
 
 ;; TODO: Move the definition to more proper place.
 
-(defmacro def-obsoleted-alias.ps+ (obsoleted-name alter-fn)
+(defmacro def-obsoleted-alias (obsoleted-name alter-fn)
   (with-gensyms (rest)
     `(defmacro ,obsoleted-name (&rest ,rest)
        (warn ,(format nil "\"~A\" is obsoleted. Please use \"~A\" instead."
