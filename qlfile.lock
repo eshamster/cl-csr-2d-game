@@ -16,3 +16,10 @@
   :repos "eshamster/cl-ps-ecs"
   :url "https://github.com/eshamster/cl-ps-ecs/archive/1e88041de8dfd631084231f82a040f080766d28c.tar.gz"
   :ref "1e88041de8dfd631084231f82a040f080766d28c"))
+("proto-cl-client-side-rendering" .
+ (:class qlot.source.github:source-github
+  :initargs (:project-name "proto-cl-client-side-rendering" :repos "eshamster/proto-cl-client-side-rendering" :ref nil :branch nil :tag nil)
+  :version "github-f1945cbc7ed6a1abed57045655955f666b17b671"
+  :repos "eshamster/proto-cl-client-side-rendering"
+  :url "https://github.com/eshamster/proto-cl-client-side-rendering/archive/f1945cbc7ed6a1abed57045655955f666b17b671.tar.gz"
+  :ref "f1945cbc7ed6a1abed57045655955f666b17b671"))
