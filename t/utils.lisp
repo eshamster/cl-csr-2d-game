@@ -3,13 +3,12 @@
         :rove
         :cl-ps-ecs
         :cl-csr-2d-game/utils/utils
-        :cl-csr-2d-game/t/test-utils
-        :ps-experiment/t/test-utils))
+        :cl-csr-2d-game/t/test-utils))
 (in-package :cl-csr-2d-game/t/utils)
 
 ;; --- test --- ;;
 
-(deftest.ps+ for-layered-hash
+(deftest for-layered-hash
   (let* ((x 0)
          (a-hash (convert-to-layered-hash
                   (:position (:x 12 :y (+ 10 20))

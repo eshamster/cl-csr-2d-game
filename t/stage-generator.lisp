@@ -1,15 +1,12 @@
 (defpackage cl-csr-2d-game/t/stage-generator
   (:use :cl
         :rove
-        :ps-experiment/t/test-utils
-        :cl-csr-2d-game/utils/stage-generator)
-  (:import-from :ps-experiment
-                :defparameter.ps+))
+        :cl-csr-2d-game/utils/stage-generator))
 (in-package :cl-csr-2d-game/t/stage-generator)
 
 ;; --- test --- ;;
 
-(deftest.ps+ main
+(deftest main
   (let* ((buffer 0)
          (test-stage (generate-stage
                        (:general :time 5 :func (lambda () (setf buffer 5)))
@@ -34,12 +31,12 @@
 
 ;; TODO: clean up environment after testing
 
-(defparameter.ps+ *test-value* 0)
+(defparameter *test-value* 0)
 
-(def-stage-element-interpreter.ps+ :hoge (value)
+(def-stage-element-interpreter :hoge (value)
   (setf *test-value* value))
 
-(deftest.ps+ for-def-stage-element-interpreter
+(deftest for-def-stage-element-interpreter
   (let* ((test-stage (generate-stage
                        (:hoge :time 5 :value 5)
                        (:hoge :time 2 :value 2)
@@ -60,14 +57,14 @@
         (process-stage test-stage)
         (ok (= *test-value* expected))))))
 
-(def-stage-element-interpreter.ps+ :hoge-included (value1)
+(def-stage-element-interpreter :hoge-included (value1)
   value1)
 
-(def-stage-element-interpreter.ps+
+(def-stage-element-interpreter
     (:hoge-including (:include :hoge-included)) (value2)
   (setf *test-value* (+ value2 hoge-included)))
 
-(deftest.ps+ for-including-other-interpreter
+(deftest for-including-other-interpreter
   (setf *test-value* 0)
   (ok (= *test-value* 0))
   (let* ((test-stage (generate-stage

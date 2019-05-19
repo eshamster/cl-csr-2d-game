@@ -2,35 +2,30 @@
   (:use :cl
         :rove
         :cl-ps-ecs
-        :ps-experiment/t/test-utils
         :cl-csr-2d-game/core/basic-components
         :cl-csr-2d-game/core/basic-systems
         :cl-csr-2d-game/t/test-utils)
   (:import-from :cl-ps-ecs/t/test-utils
-                :with-ecs-env)
-  (:import-from :ps-experiment
-                :defmacro.ps+
-                :defun.ps+
-                :defvar.ps+))
+                :with-ecs-env))
 (in-package :cl-csr-2d-game/t/script-system)
 
 ;; --- utils --- ;;
 
-(defvar.ps+ *global-counter* 0)
+(defvar *global-counter* 0)
 
-(defmacro.ps+ with-script-system (&body body)
+(defmacro with-script-system (&body body)
   `(unwind-protect
         (with-ecs-env ()
           (register-ecs-system "script" (make-script-system))
           ,@body)
      (setf *global-counter* 0)))
 
-(defun.ps+ process-one-frame ()
+(defun process-one-frame ()
   (ecs-main))
 
 ;; --- test --- ;;
 
-(deftest.ps+ script-system
+(deftest script-system
   (testing "single script"
     (with-script-system
       (let ((entity (make-ecs-entity)))

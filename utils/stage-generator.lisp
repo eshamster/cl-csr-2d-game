@@ -2,7 +2,7 @@
   (:use :cl
         :ps-experiment
         :parenscript)
-  (:export :def-stage-element-interpreter.ps+
+  (:export :def-stage-element-interpreter
            :generate-stage
            :process-stage
            :stage)
@@ -23,7 +23,7 @@
 
 ;; --- export --- ;;
 
-(defmacro.ps+ def-stage-element-interpreter.ps+
+(defmacro.ps+ def-stage-element-interpreter
     (name-and-options lambda-key-form &body body)
   (multiple-value-bind (name include)
       (parse-name-and-options name-and-options)
@@ -134,5 +134,5 @@
 
 ;; --- definition --- ;;
 
-(def-stage-element-interpreter.ps+ :general (func)
+(def-stage-element-interpreter :general (func)
   (funcall func))

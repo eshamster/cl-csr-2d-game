@@ -2,18 +2,13 @@
   (:use :cl
         :rove
         :cl-ps-ecs
-        :ps-experiment/t/test-utils
         :cl-csr-2d-game/core/basic-components
-        :cl-csr-2d-game/t/test-utils)
-  (:import-from :ps-experiment
-                :defmacro.ps+
-                :defun.ps+
-                :defvar.ps+))
+        :cl-csr-2d-game/t/test-utils))
 (in-package :cl-csr-2d-game/t/basic-components)
 
 ;; --- test --- ;;
 
-(deftest.ps+ for-copy-funcitons
+(deftest for-copy-funcitons
   (testing "vector"
     (testing "clone"
       (let* ((base (make-vector-2d :x 10 :y 20))
@@ -47,7 +42,7 @@
         (ok (is-point copied 99 20 -1))
         (ok (is-point base 10 20 -1))))))
 
-(deftest.ps+ for-params
+(deftest for-params
   (testing "normals"
     (let ((entity (make-ecs-entity)))
       (add-ecs-component (init-entity-params

@@ -2,28 +2,23 @@
   (:use :cl
         :rove
         :cl-ps-ecs
-        :ps-experiment/t/test-utils
         :cl-csr-2d-game/core/basic-components
         :cl-csr-2d-game/utils/calc
-        :cl-csr-2d-game/t/test-utils)
-  (:import-from :ps-experiment
-                :defmacro.ps+
-                :defun.ps+
-                :defvar.ps+))
+        :cl-csr-2d-game/t/test-utils))
 (in-package :cl-csr-2d-game/t/calc)
 
 ;; --- utils --- ;;
 
-(defun.ps+ is-vector (got expected-x expected-y)
+(defun is-vector (got expected-x expected-y)
   (and (within-length (vector-2d-x got) expected-x)
        (within-length (vector-2d-y got) expected-y)))
 
 ;; --- test --- ;;
 
-(defun.ps+ easy-vector-angle (x y)
+(defun easy-vector-angle (x y)
   (vector-2d-angle (make-vector-2d :x x :y y)))
 
-(deftest.ps+ for-vector-calculations
+(deftest for-vector-calculations
   (testing "vector-2d-abs"
     (ok (= (round (vector-2d-abs
                    (make-vector-2d :x 3 :y 4)))
@@ -55,7 +50,7 @@
                                  (make-vector-2d :x 3 :y -9))
            -15))))
 
-(deftest.ps+ for-vector-modification
+(deftest for-vector-modification
   (testing "Test adding vector-2d"
     (testing "add-vector-2d"
       (let* ((target (make-vector-2d :x 10 :y 10))
@@ -166,7 +161,7 @@
         (ok (= (vector-2d-x vec) 100))
         (ok (= (vector-2d-x result) 1))))))
 
-(deftest.ps+ for-calc-vec-and-scalar-calculation
+(deftest for-calc-vec-and-scalar-calculation
   (testing "Multiply vector by scalar"
     (let* ((vec (make-vector-2d :x 2 :y 3))
            (result (multf-vec-scalar vec 4)))
@@ -186,7 +181,7 @@
       (ok (is-vector vec 8 12))
       (ok (is-vector result 2 3)))))
 
-(deftest.ps+ for-coordinate-functions
+(deftest for-coordinate-functions
   (testing "transformf-point"
     ;; Note: (0, 0), (1, (sqrt 3)), (2, 0) are points of a regular triangle. 
     (let ((base (make-point-2d :x 1 :y (sqrt 3) :angle (* PI -1/2)))
@@ -240,7 +235,7 @@
       (ok (is-point (get-ecs-component 'point-2d child)
                     49 4 0)))))
 
-(deftest.ps+ for-point-to-point-distance
+(deftest for-point-to-point-distance
   (testing "calc-dist"
     (let ((pnt1 (make-vector-2d :x 2 :y -2))
           (pnt2 (make-vector-2d :x -1 :y 2))
@@ -254,7 +249,7 @@
       (ok (within-length (calc-dist-p2 pnt1 pnt2) expected))
       (ok (within-length (calc-dist-p2 pnt2 pnt1) expected)))))
 
-(deftest.ps+ for-point-to-line-distance
+(deftest for-point-to-line-distance
   (testing "calc-dist-to-line"
     (let ((line-pnt1 (make-vector-2d :x 0 :y 0))
           (line-pnt2 (make-vector-2d :x 1 :y 1)))
@@ -288,7 +283,7 @@
         (is-dist 1 2 (sqrt 2))
         (is-dist 0 3 2)))))
 
-(deftest.ps+ for-miscs
+(deftest for-miscs
   (testing "adjust-to-target"
     (ok (= (adjust-to-target -1 8 2) 1))
     (ok (= (adjust-to-target 7 8 2) 8))

@@ -2,26 +2,21 @@
   (:use :cl
         :rove
         :cl-ps-ecs
-        :ps-experiment/t/test-utils 
         :cl-csr-2d-game/physics/collision
         :cl-csr-2d-game/physics/collision-system
         :cl-csr-2d-game/core/basic-components
         :cl-csr-2d-game/utils/calc
         :cl-csr-2d-game/t/test-utils)
   (:import-from :cl-ps-ecs/t/test-utils
-                :with-ecs-env)
-  (:import-from :ps-experiment
-                :defun.ps+
-                :defmacro.ps+
-                :defvar.ps+))
+                :with-ecs-env))
 (in-package :cl-csr-2d-game/t/collision-system)
 
 ;; --- utils --- ;;
 
 ;; Note: One collision increments the count by 2.
-(defvar.ps+ *collision-count* 0)
+(defvar *collision-count* 0)
 
-(defmacro.ps+ with-collision-system (&body body)
+(defmacro with-collision-system (&body body)
   `(unwind-protect
         (with-ecs-env ()
           (register-ecs-system "collision" (make-collision-system))
@@ -30,12 +25,12 @@
           ,@body)
      (setf *collision-count* 0)))
 
-(defun.ps+ process-one-frame ()
+(defun process-one-frame ()
   (ecs-main))
 
 ;; --- entities --- ;;
 
-(defun.ps+ make-collision-test-entity
+(defun make-collision-test-entity
     (&key (check-mine-and-enemy-p nil)
           x
           (tags (list))
@@ -61,7 +56,7 @@
 ;; - same types collide
 ;; - different types don't collide
 
-(defun.ps+ make-entity-type1
+(defun make-entity-type1
     (&key (check-mine-and-enemy-p nil)
           (tags (list))
           (target-tags (list)))
@@ -71,7 +66,7 @@
    :tags tags
    :target-tags target-tags))
 
-(defun.ps+ make-entity-type2 ()
+(defun make-entity-type2 ()
   (make-collision-test-entity
    :x 1000))
 
@@ -112,7 +107,7 @@
       (process-one-frame)
       (ok (= *collision-count* 4)))))
 
-(defun.ps+ test-target-tags (target-tags1 tags1 target-tags2 tags2
+(defun test-target-tags (target-tags1 tags1 target-tags2 tags2
                                           should-collide-p)
   (with-collision-system
     (add-ecs-entity (make-entity-type1 :target-tags target-tags1

@@ -2,24 +2,19 @@
   (:use :cl
         :rove
         :cl-ps-ecs
-        :ps-experiment/t/test-utils
         :cl-csr-2d-game/utils/debug/logger
         :cl-csr-2d-game/t/test-utils)
   (:import-from :alexandria
-                :with-gensyms)
-  (:import-from :ps-experiment
-                :defmacro.ps+
-                :defun.ps+
-                :defvar.ps+))
+                :with-gensyms))
 (in-package :cl-csr-2d-game/t/logger)
 
 ;; --- prepare --- ;;
 
 (eval-when (:load-toplevel :execute :compile-toplevel)
-  (defun.ps+ current-log-level ()
+  (defun current-log-level ()
     'cl-csr-2d-game/utils/debug/logger::*current-console-log-level*))
 
-(defmacro.ps+ with-logger-env (() &body body)
+(defmacro with-logger-env (() &body body)
   (with-gensyms (pre-log-function pre-log-level)
     `(let ((,pre-log-function *console-log-function*)
            (,pre-log-level ,(current-log-level)))
@@ -30,7 +25,7 @@
 
 ;; --- test --- ;;
 
-(deftest.ps+ for-console-logger
+(deftest for-console-logger
   (testing "Decide if log is output by log level"
     (with-logger-env ()
       (let ((result nil))

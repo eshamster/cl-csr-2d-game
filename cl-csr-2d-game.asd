@@ -17,6 +17,7 @@
   :license "LLGPL"
   :depends-on (:parenscript
                :ps-experiment
+               :ningle
                :cl-ps-ecs
                :cl-csr-2d-game/main
                :proto-cl-client-side-rendering)
@@ -38,11 +39,9 @@
 (defsystem cl-csr-2d-game/t
   :class :package-inferred-system
   :depends-on (:cl-csr-2d-game
-               :ps-experiment/t
                :cl-ppcre
                :rove
                :alexandria
-               "ps-experiment/t/test-utils"
                "cl-csr-2d-game/t/test-utils"
                "cl-csr-2d-game/t/utils"
                "cl-csr-2d-game/t/logger"

@@ -2,40 +2,34 @@
   (:use :cl
         :rove
         :cl-ps-ecs
-        :ps-experiment/t/test-utils
         :cl-csr-2d-game/core/game-state
         :cl-csr-2d-game/t/test-utils)
-  (:import-from :ps-experiment
-                :defvar.ps+
-                :defun.ps+
-                :defmacro.ps+
-                :defstruct.ps+) 
   (:import-from :alexandria
                 :with-gensyms))
 (in-package :cl-csr-2d-game/t/game-state)
 
 ;; - buffer - ;;
 
-(defvar.ps+ *buffer* "")
+(defvar *buffer* "")
 
-(defun.ps+ write-buffer-with-clear (content)
+(defun write-buffer-with-clear (content)
   (setf *buffer* content))
 
 ;; - state - ;;
 
-(defstruct.ps+ (test-state (:include game-state)) (count 0))
+(defstruct (test-state (:include game-state)) (count 0))
 
-(defun.ps+ reset-count (_this)
+(defun reset-count (_this)
   (setf (test-state-count _this) 0))
 
-(defmacro.ps+ with-test-count (_this &body body)
+(defmacro with-test-count (_this &body body)
   (with-gensyms (prev)
     `(progn (let ((,prev (test-state-count ,_this)))
               (incf (test-state-count ,_this))
               (case ,prev
                 ,@body)))))
 
-(defstruct.ps+
+(defstruct
     (test-state1
      (:include test-state
                (start-process
@@ -63,7 +57,7 @@
                        (reset-count _this)
                        t)))))))
 
-(defstruct.ps+
+(defstruct
     (test-state2
      (:include test-state
                (start-process
@@ -72,7 +66,7 @@
                   (write-buffer-with-clear "state2 start-process")
                   t)))))
 
-(defstruct.ps+
+(defstruct
     (test-state-interrupt
      (:include test-state
                (start-process
@@ -83,7 +77,7 @@
 
 ;; --- test --- ;;
 
-(deftest.ps+ main
+(deftest main
   (init-game-state (make-test-state1))
   (process-game-state)
   (ok (string= *buffer* "state1 start-process 0"))
@@ -169,7 +163,7 @@
     (declare (ignore _this))
     (write-buffer-with-clear "start test-def-state2")))
 
-(deftest.ps+ for-def-game-state
+(deftest for-def-game-state
   (init-game-state (make-state :test-def-state1
                                :test-param1 1000))
   (process-game-state)
@@ -186,10 +180,10 @@
 ;; --- test others --- ;;
 ;; ------------------- ;;
 
-(defstruct.ps+ st-for-state-lambda
+(defstruct st-for-state-lambda
     a (b 10))
 
-(deftest.ps+ for-state-lambda
+(deftest for-state-lambda
   (let ((st (make-st-for-state-lambda)))
     (funcall (state-lambda (a (new-b b))
                (setf a 10)
