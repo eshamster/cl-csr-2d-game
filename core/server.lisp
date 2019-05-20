@@ -7,6 +7,8 @@
            :stop-csr-game-loop)
   (:import-from :cl-ps-ecs
                 :ecs-main)
+  (:import-from :cl-csr-2d-game/core/game-state
+                :process-game-state)
   (:import-from :cl-csr-2d-game/core/initializer
                 :init-default-systems)
   (:import-from :proto-cl-client-side-rendering
@@ -72,6 +74,7 @@
 (defun start-csr-game-loop (&key init-func update-func)
   (funcall init-func)
   (start-game-loop :update-func (lambda ()
+                                  (process-game-state)
                                   (ecs-main)
                                   (funcall update-func))))
 
