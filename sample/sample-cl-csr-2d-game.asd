@@ -16,6 +16,7 @@
   :defsystem-depends-on (:asdf-package-system)
   :license "MIT"
   :depends-on (:cl-markup
+               :alexandria
                :ningle
                :proto-cl-client-side-rendering
                :sample-cl-csr-2d-game/main)

@@ -6,9 +6,9 @@
   (:import-from :cl-csr-2d-game
                 :start
                 :stop)
-  (:import-from :sample-cl-csr-2d-game/process
-                :init-sample
-                :update-sample)
+  (:import-from :sample-cl-csr-2d-game/sample-basic
+                :init-sample-basic
+                :update-sample-basic)
   (:import-from :proto-cl-client-side-rendering
                 :ensure-js-files
                 :make-src-list-for-script-tag
@@ -18,20 +18,35 @@
                 :delete-ecs-entity
                 :stack-default-ecs-entity-parent
                 :pop-default-ecs-entity-parent
-                :register-next-frame-func))
+                :register-next-frame-func)
+  (:import-from :alexandria
+                :hash-table-keys
+                :plist-hash-table))
 (in-package :sample-cl-csr-2d-game/server)
 
 (defvar *parent-entity* nil)
 
-(defun start-sample (&key (port 5000))
+(defparameter *sample-func-table*
+  (plist-hash-table '(:basic (init-sample-basic update-sample-basic))))
+
+(defun get-sample-funcs (type)
+  (let ((result (gethash type *sample-func-table*)))
+    (unless result
+      (error "\"~S\" is not recognized sample type. ~S are allowed."
+             type (hash-table-keys *sample-func-table*)))
+    result))
+
+(defun start-sample (&key (port 5000) (type :basic))
   (stop-sample)
   (setf *parent-entity* (make-ecs-entity))
   (stack-default-ecs-entity-parent *parent-entity*)
-  (start :port port
-         :root-dir (asdf:component-pathname
-                    (asdf:find-system :sample-cl-csr-2d-game))
-         :init-func (lambda () (init-sample))
-         :update-func (lambda () (update-sample))))
+  (let ((init-func (car (get-sample-funcs type)))
+        (update-func (cadr (get-sample-funcs type))))
+    (start :port port
+           :root-dir (asdf:component-pathname
+                      (asdf:find-system :sample-cl-csr-2d-game))
+           :init-func init-func
+           :update-func update-func)))
 
 (defun stop-sample ()
   (when *parent-entity*

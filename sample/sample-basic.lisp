@@ -1,7 +1,7 @@
-(defpackage sample-cl-csr-2d-game/process
+(defpackage sample-cl-csr-2d-game/sample-basic
   (:use :cl)
-  (:export :update-sample
-           :init-sample)
+  (:export :update-sample-basic
+           :init-sample-basic)
   (:import-from :cl-csr-2d-game
                 :make-point-2d
                 :point-2d
@@ -34,13 +34,13 @@
                 :key-down-p
                 :mouse-down-p
                 :get-mouse-pos))
-(in-package :sample-cl-csr-2d-game/process)
+(in-package :sample-cl-csr-2d-game/sample-basic)
 
 (defvar *temp-counter* 0)
 
 (defparameter *temp-speed* 10)
 
-(defun init-sample ()
+(defun init-sample-basic ()
   (init-circle :x 200 :speed 1/2
                :r 40
                :fill-p nil
@@ -196,5 +196,5 @@
 
 ;; --- ;;
 
-(defun update-sample ()
+(defun update-sample-basic ()
   (incf *temp-counter*))
