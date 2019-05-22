@@ -9,6 +9,9 @@
   (:import-from :sample-cl-csr-2d-game/sample-basic
                 :init-sample-basic
                 :update-sample-basic)
+  (:import-from :sample-cl-csr-2d-game/sample-debug-draw
+                :init-sample-debug-draw
+                :update-sample-debug-draw)
   (:import-from :proto-cl-client-side-rendering
                 :ensure-js-files
                 :make-src-list-for-script-tag
@@ -27,7 +30,8 @@
 (defvar *parent-entity* nil)
 
 (defparameter *sample-func-table*
-  (plist-hash-table '(:basic (init-sample-basic update-sample-basic))))
+  (plist-hash-table '(:basic (init-sample-basic update-sample-basic)
+                      :debug-draw (init-sample-debug-draw update-sample-debug-draw))))
 
 (defun get-sample-funcs (type)
   (let ((result (gethash type *sample-func-table*)))

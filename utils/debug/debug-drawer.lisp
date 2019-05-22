@@ -1,13 +1,10 @@
 (in-package :cl-user)
 (defpackage cl-csr-2d-game/utils/debug/debug-drawer
   (:use :cl
-        :cl-ppcre
-        :ps-experiment
         :cl-ps-ecs
         :cl-csr-2d-game/core/basic-components
         :cl-csr-2d-game/graphics/2d-geometry
-        :cl-csr-2d-game/graphics/draw-model-system
-        :parenscript)
+        :cl-csr-2d-game/graphics/draw-model-system)
   (:export :draw-debug-point
            :draw-debug-point-by-time
            :draw-debug-line
@@ -17,16 +14,14 @@
            :*standard-debug-depth*))
 (in-package :cl-csr-2d-game/utils/debug/debug-drawer)
 
-(enable-ps-experiment-syntax)
-
 ;; --- Draw debug models --- ;;
 
 ;; - Basic - ;;
 
-(defun.ps+ draw-debug-model (&key model point
-                                  (tag-list '())
-                                  (parent nil)
-                                  fn-delete-condition)
+(defun draw-debug-model (&key model point
+                           (tag-list '())
+                           (parent nil)
+                           fn-delete-condition)
   (check-type model model-2d)
   (check-type point vector-2d)
   (when parent
@@ -46,35 +41,37 @@
                 (register-next-frame-func
                  (lambda () (delete-ecs-entity entity)))))))
     (register-next-frame-func
-     (lambda () (add-ecs-entity entity parent)))))
+     (lambda ()
+       (if parent
+           (add-ecs-entity entity parent)
+           (add-ecs-entity entity))))))
 
-(defvar.ps+ *standard-debug-color* #xff0000)
-(defvar.ps+ *standard-debug-depth* 100)
+(defvar *standard-debug-color* #xff0000)
+(defvar *standard-debug-depth* 100)
 
 ;; -- Point -- ;;
 
-(defvar.ps+ *standard-debug-point-r* 4)
+(defvar *standard-debug-point-r* 4)
 
-(defun.ps+ draw-debug-point (&key point
-                                  (tag-list '())
-                                  (parent nil)
-                                  (r *standard-debug-point-r*)
-                                  fn-delete-condition)
+(defun draw-debug-point (&key point
+                           (tag-list '())
+                           (parent nil)
+                           (r *standard-debug-point-r*)
+                           fn-delete-condition)
   (draw-debug-model
-   :model (make-model-2d :model (make-wired-regular-polygon
-                                 :n 60 :r r
-                                 :color *standard-debug-color*)
+   :model (make-model-2d :mesh (make-circle-mesh
+                                :r r :color *standard-debug-color*)
                          :depth *standard-debug-depth*)
    :point point
    :tag-list tag-list
    :parent parent
    :fn-delete-condition fn-delete-condition))
 
-(defun.ps+ draw-debug-point-by-time (&key point
-                                          (tag-list '())
-                                          (parent nil)
-                                          (r *standard-debug-point-r*)
-                                          (time 60))
+(defun draw-debug-point-by-time (&key point
+                                   (tag-list '())
+                                   (parent nil)
+                                   (r *standard-debug-point-r*)
+                                   (time 60))
   (draw-debug-point
    :point point
    :tag-list tag-list
@@ -84,27 +81,27 @@
 
 ;; - Line - ;;
 
-(defun.ps+ draw-debug-line (&key point1 point2
-                                 (tag-list '())
-                                 (parent nil)
-                                 fn-delete-condition)
+(defun draw-debug-line (&key point1 point2
+                          (tag-list '())
+                          (parent nil)
+                          fn-delete-condition)
   (draw-debug-model
-   :model (make-model-2d :model (make-line
-                                 :pos-a (list (vector-2d-x point1)
-                                              (vector-2d-y point1))
-                                 :pos-b (list (vector-2d-x point2)
-                                              (vector-2d-y point2))
-                                 :color *standard-debug-color*)
+   :model (make-model-2d :mesh (make-line-mesh
+                                :pos-a (list (vector-2d-x point1)
+                                             (vector-2d-y point1))
+                                :pos-b (list (vector-2d-x point2)
+                                             (vector-2d-y point2))
+                                :color *standard-debug-color*)
                          :depth *standard-debug-depth*)
    :point (make-point-2d)
    :tag-list tag-list
    :parent parent
    :fn-delete-condition fn-delete-condition))
 
-(defun.ps+ draw-debug-line-by-time (&key point1 point2
-                                         (tag-list '())
-                                         (parent nil)
-                                         (time 60))
+(defun draw-debug-line-by-time (&key point1 point2
+                                  (tag-list '())
+                                  (parent nil)
+                                  (time 60))
   (draw-debug-line
    :point1 point1
    :point2 point2
@@ -114,7 +111,7 @@
 
 ;; --- tools --- ;;
 
-(defun.ps+ make-fn-timer-condition (time)
+(defun make-fn-timer-condition (time)
   (lambda (entity)
     (declare (ignore entity))
     (decf time)
