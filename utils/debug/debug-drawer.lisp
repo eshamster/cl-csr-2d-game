@@ -86,11 +86,8 @@
                           (parent nil)
                           fn-delete-condition)
   (draw-debug-model
-   :model (make-model-2d :mesh (make-line-mesh
-                                :pos-a (list (vector-2d-x point1)
-                                             (vector-2d-y point1))
-                                :pos-b (list (vector-2d-x point2)
-                                             (vector-2d-y point2))
+   :model (make-model-2d :mesh (make-line-mesh-by-vector
+                                :vec1 point1 :vec2 point2
                                 :color *standard-debug-color*)
                          :depth *standard-debug-depth*)
    :point (make-point-2d)

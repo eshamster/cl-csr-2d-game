@@ -18,4 +18,16 @@
         (draw-debug-point-by-time
          :point (make-point-2d :x x :y y)
          :r 20
+         :time 10)
+        (setf (vector-2d-x *down-point*) x
+              (vector-2d-y *down-point*) y)))
+    (when (mouse-up-now-p id :left)
+      (multiple-value-bind (x y) (get-mouse-pos id)
+        (draw-debug-line-by-time
+         :point1 (clone-point-2d *down-point*)
+         :point2 (make-point-2d :x x :y y)
          :time 10)))))
+
+;; --- internal --- ;;
+
+(defvar *down-point* (make-point-2d))
