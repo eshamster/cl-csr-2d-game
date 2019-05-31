@@ -20,9 +20,11 @@
            ; :get-mesh-height
            ; :get-mesh-size
            :make-rect-mesh
+           :make-arc-mesh
            :make-circle-mesh)
   (:import-from :proto-cl-client-side-rendering
                 :draw-rect
+                :draw-arc
                 :draw-circle
                 :draw-line))
 (in-package :cl-csr-2d-game/graphics/2d-geometry)
@@ -39,6 +41,19 @@
                :y y
                :rotate rotate
                :fill-p fill-p)))
+
+;; --- arc --- ;;
+
+(defun make-arc-mesh (&key
+                        (color #xffffff)
+                        r start-angle sweep-angle)
+  (lambda (&key id x y depth rotate)
+    ;; TODO: rotate considering offset
+    (draw-arc :id id :depth depth :color color
+              :start-angle (+ start-angle rotate)
+              :sweep-angle sweep-angle
+              :r r
+              :x x :y y)))
 
 ;; --- circle --- ;;
 

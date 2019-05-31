@@ -16,6 +16,7 @@
                 :model-2d-offset
                 :model-2d-target-client-id-list
                 :make-rect-mesh
+                :make-arc-mesh
                 :make-circle-mesh
                 :update-model-2d
                 :find-model-2d-by-label)
@@ -57,6 +58,11 @@
              :rotate-speed -1/5
              :fill-p t
              :color #xff00ff)
+  (init-arc :x 100 :y 400
+            :start-angle (* PI 1/6)
+            :sweep-angle (* PI 1/3)
+            :r 40
+            :color #x00fffff)
   (init-circle-moved-by-input)
   (init-rect-modifying-model)
   (init-circle-sending-to-each-client
@@ -83,6 +89,20 @@
 (defun update-rect (entity rotate-speed)
   (with-ecs-components (point-2d) entity
     (incf (point-2d-angle point-2d) rotate-speed)))
+
+;; --- arc --- ;;
+
+(defun init-arc (&key x y start-angle sweep-angle r color)
+  (let ((entity (make-ecs-entity)))
+    (add-ecs-component-list
+     entity
+     (make-point-2d :x x :y y)
+     (make-model-2d :mesh (make-arc-mesh :r r
+                                         :start-angle start-angle
+                                         :sweep-angle sweep-angle
+                                         :color color)
+                    :depth 0))
+    (add-ecs-entity entity)))
 
 ;; --- circle --- ;;
 
