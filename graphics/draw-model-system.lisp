@@ -23,6 +23,8 @@
                 :point-2d-y
                 :point-2d-angle
                 :make-point-2d)
+  (:import-from :cl-csr-2d-game/core/update-frequency
+                :draw-in-this-frame-p)
   (:import-from :proto-cl-client-side-rendering
                 :*target-client-id-list*))
 (in-package :cl-csr-2d-game/graphics/draw-model-system)
@@ -51,6 +53,8 @@
                           (process-in-draw-model-system entity))))))
 
 (defun process-in-draw-model-system (entity)
+  (unless (draw-in-this-frame-p)
+    (return-from process-in-draw-model-system))
   (do-ecs-components-of-entity
       (modelc entity :component-type 'model-2d)
     (when (model-2d-enable-p modelc)

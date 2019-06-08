@@ -14,6 +14,7 @@
                  :cl-csr-2d-game/core/basic-systems
                  :cl-csr-2d-game/core/initializer
                  :cl-csr-2d-game/core/game-state
+                 :cl-csr-2d-game/core/update-frequency
                  ;; Note: The camera is maybe not "core".
                  :cl-csr-2d-game/core/camera
                  :cl-csr-2d-game/core/server

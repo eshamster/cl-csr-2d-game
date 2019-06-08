@@ -11,10 +11,13 @@
                 :process-game-state)
   (:import-from :cl-csr-2d-game/core/initializer
                 :init-default-systems)
+  (:import-from :cl-csr-2d-game/core/update-frequency
+                :process-update-frequency)
   (:import-from :proto-cl-client-side-rendering
                 :start-game-loop
                 :stop-game-loop
                 :ensure-js-files
+                :set-fps
                 :make-src-list-for-script-tag
                 :make-client-side-rendering-middleware))
 (in-package :cl-csr-2d-game/core/server)
@@ -74,6 +77,7 @@
 (defun start-csr-game-loop (&key init-func update-func)
   (funcall init-func)
   (start-game-loop :update-func (lambda ()
+                                  (process-update-frequency)
                                   (process-game-state)
                                   (ecs-main)
                                   (funcall update-func))))
