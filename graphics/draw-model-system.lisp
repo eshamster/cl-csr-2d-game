@@ -26,6 +26,7 @@
   (:import-from :cl-csr-2d-game/core/update-frequency
                 :draw-in-this-frame-p)
   (:import-from :proto-cl-client-side-rendering
+                :skip-drawing-in-this-frame
                 :*target-client-id-list*))
 (in-package :cl-csr-2d-game/graphics/draw-model-system)
 
@@ -54,6 +55,7 @@
 
 (defun process-in-draw-model-system (entity)
   (unless (draw-in-this-frame-p)
+    (skip-drawing-in-this-frame)
     (return-from process-in-draw-model-system))
   (do-ecs-components-of-entity
       (modelc entity :component-type 'model-2d)
