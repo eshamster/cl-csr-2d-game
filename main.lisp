@@ -19,13 +19,9 @@
                  :cl-csr-2d-game/core/camera
                  :cl-csr-2d-game/core/server
 
-                 :cl-csr-2d-game/graphics/texture
-                 :cl-csr-2d-game/graphics/animation
-                 :cl-csr-2d-game/graphics/animation-manager
                  :cl-csr-2d-game/graphics/2d-geometry
                  :cl-csr-2d-game/graphics/draw-model-system
                  :cl-csr-2d-game/graphics/font
-                 :cl-csr-2d-game/graphics/text-area
 
                  :cl-csr-2d-game/inputs/gui
                  ;; :cl-csr-2d-game/inputs/ui
