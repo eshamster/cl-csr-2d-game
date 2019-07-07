@@ -18,6 +18,7 @@
                 :make-rect-mesh
                 :make-arc-mesh
                 :make-circle-mesh
+                :make-image-mesh
                 :update-model-2d
                 :find-model-2d-by-label)
   (:import-from :cl-ps-ecs
@@ -34,7 +35,11 @@
                 :*target-client-id-list*
                 :key-down-p
                 :mouse-down-p
-                :get-mouse-pos))
+                :get-mouse-pos
+
+                :load-texture
+                :load-image
+                :make-image-uv))
 (in-package :sample-cl-csr-2d-game/sample-basic)
 
 (defvar *temp-counter* 0)
@@ -68,7 +73,44 @@
   (init-circle-sending-to-each-client
    :x 700 :y 450 :color #xff0000 :odd-client-p t)
   (init-circle-sending-to-each-client
-   :x 700 :y 500 :color #x0000ff :odd-client-p nil))
+   :x 700 :y 500 :color #x0000ff :odd-client-p nil)
+
+  (load-images)
+  (init-image :image-name :sample
+              :x 400 :y 100
+              :rotate-speed 1/6
+              :color #xff88ff)
+  (init-image :image-name :sample-with-alpha
+              :x 500 :y 100
+              :rotate-speed -1/6)
+  (init-image :image-name :a
+              :x 600 :y 100
+              :rotate-speed 1/6)
+  (init-image :image-name :b
+              :x 620 :y 100
+              :rotate-speed -1/6))
+
+(defun load-images ()
+  (load-texture :name :sample
+                :path "sample.png")
+  (load-image :image-name :sample
+              :texture-name :sample)
+
+  (load-texture :name :sample-with-alpha
+                :path "sample.png"
+                :alpha-path "sample_alpha.png")
+  (load-image :image-name :sample-with-alpha
+              :texture-name :sample-with-alpha)
+
+  (load-texture :name :multiple-image
+                :path "multiple_image.png"
+                :alpha-path "multiple_image_alpha.png")
+  (load-image :image-name :a
+              :texture-name :multiple-image
+              :uv (make-image-uv :width 0.5))
+  (load-image :image-name :b
+              :texture-name :multiple-image
+              :uv (make-image-uv :x 0.5 :width 0.5)))
 
 ;; --- rect --- ;;
 
@@ -213,6 +255,24 @@
           (remove-if (lambda (id) (= (mod id 2)
                                      (if odd-client-p 0 1)))
                      (get-client-id-list)))))
+
+;; --- image --- ;;
+
+(defun init-image (&key image-name x y rotate-speed color)
+  (let ((entity (make-ecs-entity))
+        (width 60)
+        (height 60))
+    (add-ecs-component-list
+     entity
+     (make-point-2d :x x :y y)
+     (make-model-2d :mesh (make-image-mesh :image-name image-name
+                                           :width width :height height
+                                           :color color)
+                    :offset (make-point-2d :x (* width -1/2) :y (* height -1/2))
+                    :depth 0)
+     (make-script-2d :func (lambda (entity)
+                             (update-rect entity rotate-speed))))
+    (add-ecs-entity entity)))
 
 ;; --- ;;
 

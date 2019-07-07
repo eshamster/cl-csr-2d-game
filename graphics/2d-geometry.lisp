@@ -10,7 +10,7 @@
            ; :make-wired-regular-polygon
            ; :make-wired-polygon
            ; :make-solid-polygon
-           ; :make-texture-model
+           :make-image-mesh
            ; :make-texture-model-promise
            ; :make-text-model-promise
            ; :change-model-color
@@ -26,7 +26,8 @@
                 :draw-rect
                 :draw-arc
                 :draw-circle
-                :draw-line))
+                :draw-line
+                :draw-image))
 (in-package :cl-csr-2d-game/graphics/2d-geometry)
 
 ;; --- rectangle --- ;;
@@ -87,3 +88,21 @@
                   :x2 (vector-2d-x vec2)
                   :y2 (vector-2d-y vec2)
                   :color color))
+
+;; --- image --- ;;
+
+(defun make-image-mesh (&key
+                          image-name
+                          (color #xffffff) width height)
+  "Make a mesh textured by a image.
+The image-name should be registered by proto-cl-client-rendering:load-image in advance."
+  (lambda (&key id x y depth rotate)
+    (draw-image :id id
+                :image-name image-name
+                :x x
+                :y y
+                :depth depth
+                :color color
+                :width width
+                :height height
+                :rotate rotate)))

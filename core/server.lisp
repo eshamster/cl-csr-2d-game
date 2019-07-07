@@ -32,8 +32,6 @@
   (assert root-dir)
   (stop)
   (init-default-systems)
-  (start-csr-game-loop :init-func init-func
-                       :update-func update-func)
   (let ((resource-dir (merge-pathnames "resource/" root-dir)))
     (init-ningle-app :resource-dir resource-dir)
     (setf *server*
@@ -42,7 +40,9 @@
             (make-client-side-rendering-middleware
              :resource-root resource-dir)
             *ningle-app*)
-           :port port))))
+           :port port)))
+  (start-csr-game-loop :init-func init-func
+                       :update-func update-func))
 
 (defun stop ()
   (when *server*
