@@ -20,18 +20,12 @@
                 :make-circle-mesh
                 :make-image-mesh
                 :update-model-2d
-                :find-model-2d-by-label
-
-                :load-anime
-                :add-anime-2d)
+                :find-model-2d-by-label)
   (:import-from :cl-ps-ecs
                 :make-ecs-entity
                 :add-ecs-entity
-                :delete-ecs-entity
                 :add-ecs-component-list
-                :find-the-entity
-                :with-ecs-components
-                :register-next-frame-func)
+                :with-ecs-components)
   (:import-from :proto-cl-client-side-rendering
                 :draw-rect
                 :draw-circle
@@ -40,7 +34,6 @@
                 :get-client-id-list
                 :*target-client-id-list*
                 :key-down-p
-                :key-down-now-p
                 :mouse-down-p
                 :get-mouse-pos
 
@@ -95,8 +88,7 @@
               :rotate-speed 1/6)
   (init-image :image-name :b
               :x 620 :y 100
-              :rotate-speed -1/6)
-  (init-anime))
+              :rotate-speed -1/6))
 
 (defun load-images ()
   (load-texture :name :sample
@@ -119,15 +111,6 @@
   (load-image :image-name :b
               :texture-name :multiple-image
               :uv (make-image-uv :x 0.5 :width 0.5)))
-
-(defun init-anime ()
-  (load-texture :name :sample-explosion
-                :path "sample_explosion.png"
-                :alpha-path "sample_explosion_alpha.png")
-  (load-anime :anime-name :explosion
-              :texture-name :sample-explosion
-              :x-count 5 :y-count 3)
-  (init-anime-entity-creator))
 
 ;; --- rect --- ;;
 
@@ -289,49 +272,6 @@
                     :depth 0)
      (make-script-2d :func (lambda (entity)
                              (update-rect entity rotate-speed))))
-    (add-ecs-entity entity)))
-
-;; --- anime --- ;;
-
-(defun init-anime-entity-creator ()
-  (let ((entity (make-ecs-entity)))
-    (add-ecs-component-list
-     entity
-     (make-script-2d :func (lambda (entity)
-                             (declare (ignore entity))
-                             (add-anime-entity-by-input))))
-    (add-ecs-entity entity)))
-
-(defun add-anime-entity-by-input ()
-  (dolist (client-id (get-client-id-list))
-    (when (key-down-now-p client-id :e)
-      (multiple-value-bind (x y)
-          (get-mouse-pos client-id)
-        (add-anime-entity x y)))))
-
-(defun add-anime-entity (x y)
-  (let ((entity (make-ecs-entity))
-        (width 100)
-        (height 100))
-    (add-ecs-component-list
-     entity
-     (make-point-2d :x x :y y))
-    (add-anime-2d :entity entity
-                  :anime-name :explosion
-                  :interval 2
-                  :width width
-                  :height height
-                  :model (make-model-2d
-                          :depth 10
-                          :offset (make-point-2d :x (* width -1/2)
-                                                 :y (* height -1/2)))
-                  :anime-end-callback
-                  (lambda (anime-2d)
-                    (declare (ignore anime-2d))
-                    (when (find-the-entity entity)
-                      (register-next-frame-func
-                       (lambda ()
-                         (delete-ecs-entity entity))))))
     (add-ecs-entity entity)))
 
 ;; --- ;;

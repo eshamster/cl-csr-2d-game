@@ -2,7 +2,6 @@
   (:use :cl
         :cl-ps-ecs)
   (:export :load-anime
-           :anime-2d
            :add-anime-2d
            ;; for internal (another package)
            :process-anime)
@@ -11,8 +10,6 @@
   (:import-from :cl-csr-2d-game/graphics/draw-model-system
                 :make-model-2d
                 :model-2d-mesh
-                :enable-model-2d
-                :disable-model-2d
                 :find-model-2d-by-label)
   (:import-from :alexandria
                 :make-keyword)
@@ -65,8 +62,8 @@
       (dotimes (x x-count)
         (let* ((uv-x (+ offset-uv-x
                         (* x one-uv-width)))
-               (uv-y (- 1.0 (+ offset-uv-y
-                               (* y one-uv-height))))
+               (uv-y (+ offset-uv-y
+                        (* y one-uv-height)))
                (index (+ x (* y x-count)))
                ;; XXX: Avoid name confliction of image-name
                (image-name (make-keyword
@@ -87,7 +84,7 @@
 (defun add-anime-2d (&key anime-name (interval 1) entity model
                        width height (color #xffffff)
                        (anime-end-callback (lambda (anime-2d) (declare (ignore anime-2d)))))
-  "Add anime-2d to the entity and return the anime-2d structure.
+  "Initialize anime-2d structure.
 The specified anime by the anime-name should have been loaded by load-anime.
 The model is a model-2d with an empty \":mesh\" parameter."
   (let ((anime-2d (make-anime-2d :anime-name anime-name
@@ -133,58 +130,57 @@ The model is a model-2d with an empty \":mesh\" parameter."
   (* (anime-info-x-count anime-info)
      (anime-info-y-count anime-info)))
 
-(defun enable-anime (entity anime-2d)
-  "Enable drawing the model"
-  (check-type entity ecs-entity)
-  (check-type anime-2d anime-2d)
-  (enable-model-2d entity
-                   :target-model-2d (anime-2d-model anime-2d)))
+;; (defun enable-anime (entity anime-2d)
+;;   "Enable drawing the model"
+;;   (check-type entity ecs-entity)
+;;   (check-type anime-2d anime-2d)
+;;   (enable-model-2d entity
+;;                    :target-model-2d (anime-2d-model anime-2d)))
 
-(defun disable-anime (entity anime-2d)
-  "Stop the anime and disable drawing the model"
-  (check-type entity ecs-entity)
-  (check-type anime-2d anime-2d)
-  (stop-anime anime-2d)
-  (disable-model-2d entity
-                    :target-model-2d (anime-2d-model anime-2d)))
+;; (defun disable-anime (entity anime-2d)
+;;   "Stop the anime and disable drawing the model"
+;;   (check-type entity ecs-entity)
+;;   (check-type anime-2d anime-2d)
+;;   (stop-anime anime-2d)
+;;   (disable-model-2d entity
+;;                     :target-model-2d (anime-2d-model anime-2d)))
 
-(defun start-anime (anime-2d)
-  (with-slots (go-to-forward-p interval-counter) anime-2d
-    (unless go-to-forward-p
-      (setf interval-counter
-            (- (anime-2d-interval anime-2d)
-               interval-counter 1)))
-    (setf (anime-2d-run-anime-p anime-2d) t)
-    (setf go-to-forward-p t)))
+;; (defun start-anime (anime)
+;;   (with-slots (goes-to-forward interval-counter interval runs-anime) anime
+;;     (unless goes-to-forward
+;;       (setf interval-counter
+;;             (- interval interval-counter 1)))
+;;     (setf runs-anime t)
+;;     (setf goes-to-forward t)))
 
-(defun start-reversed-anime (anime-2d)
-  (with-slots (go-to-forward-p interval-counter) anime-2d
-    (when go-to-forward-p
-      (setf interval-counter
-            (- (anime-2d-interval anime-2d)
-               interval-counter 1)))
-    (setf (anime-2d-run-anime-p anime-2d) t)
-    (setf go-to-forward-p nil)))
+;; (defun start-reversed-anime (anime)
+;;   (with-slots (goes-to-forward interval-counter interval runs-anime) anime
+;;     (when goes-to-forward
+;;       (setf interval-counter
+;;             (- interval interval-counter 1)))
+;;     (setf runs-anime t)
+;;     (setf goes-to-forward nil)))
 
-(defun reverse-anime (anime-2d)
-  (if (anime-2d-go-to-forward-p anime-2d)
-      (start-reversed-anime anime-2d)
-      (start-anime anime-2d)))
+;; (defun reverse-anime (anime)
+;;   (if (anime-2d-goes-to-forward anime)
+;;       (start-reversed-anime anime)
+;;       (start-anime anime)))
 
-(defun reset-anime (anime-2d &key (stop-p t) (forward-p :asis))
-  (with-slots (go-to-forward-p) anime-2d
-    (unless (eq forward-p :asis)
-      (setf go-to-forward-p forward-p))
-    (setf (anime-2d-interval-counter anime-2d) 0)
-    (switch-anime-image anime-2d
-                        (if go-to-forward-p
-                            0
-                            (1- (get-anime-cell-count
-                                 (get-anime-info (anime-2d-anime-name anime-2d))))))
-    (setf (anime-2d-run-anime-p anime-2d) (not stop-p))))
+;; (defun reset-anime (anime &key (stop-p t) (forward-p :asis))
+;;   (with-slots (goes-to-forward interval-counter runs-anime
+;;                                horiz-count vert-count) anime
+;;     (when (eq forward-p :asis)
+;;       (setf forward-p goes-to-forward))
+;;     (setf interval-counter 0)
+;;     (switch-anime-image anime
+;;                             (if forward-p
+;;                                 0
+;;                                 (1- (* horiz-count vert-count))))
+;;     (setf runs-anime (not stop-p))
+;;     (setf goes-to-forward forward-p)))
 
-(defun stop-anime (anime)
-  (setf (anime-2d-run-anime-p anime) nil))
+;; (defun stop-anime (anime)
+;;   (setf (anime-2d-runs-anime anime) nil))
 
 (defun switch-anime-image (anime-2d next-counter)
   (let ((model (anime-2d-model anime-2d))

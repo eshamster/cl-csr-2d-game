@@ -6,6 +6,9 @@
   (:import-from :cl-csr-2d-game
                 :start
                 :stop)
+  (:import-from :sample-cl-csr-2d-game/sample-anime
+                :init-sample-anime
+                :update-sample-anime)
   (:import-from :sample-cl-csr-2d-game/sample-basic
                 :init-sample-basic
                 :update-sample-basic)
@@ -31,6 +34,7 @@
 
 (defparameter *sample-func-table*
   (plist-hash-table '(:basic (init-sample-basic update-sample-basic)
+                      :anime (init-sample-anime update-sample-anime)
                       :debug-draw (init-sample-debug-draw update-sample-debug-draw))))
 
 (defun get-sample-funcs (type)
