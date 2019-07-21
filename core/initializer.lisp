@@ -2,6 +2,7 @@
 (defpackage cl-csr-2d-game/core/initializer
   (:use :cl
         :cl-csr-2d-game/core/basic-systems
+        :cl-csr-2d-game/graphics/anime-system
         :cl-csr-2d-game/graphics/draw-model-system
         :cl-csr-2d-game/physics/collision-system)
   (:export :init-default-systems)
@@ -11,7 +12,7 @@
 
 (defun init-default-systems (&key (script-system t)
                                (draw-system t)
-                               ; (animation-system t)
+                               (anime-system t)
                                (collision-system t)
                                (simple-move-system t)
                                ; (ui-system t)
@@ -24,9 +25,9 @@
     (register-ecs-system "simple-move" (make-simple-move-system)))
   (when draw-system
     (register-ecs-system "draw2d" (init-draw-model-system)))
+  (when anime-system
+    (register-ecs-system "anime" (make-anime-system)))
   #|
-  (when animation-system
-    (register-ecs-system "animation" (make-animation-system)))
   (when ui-system
     (register-ecs-system "ui" (init-ui-system)))
   |#

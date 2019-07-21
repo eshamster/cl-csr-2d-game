@@ -21,6 +21,7 @@
 
                  :cl-csr-2d-game/graphics/2d-geometry
                  :cl-csr-2d-game/graphics/draw-model-system
+                 :cl-csr-2d-game/graphics/anime
                  :cl-csr-2d-game/graphics/font
 
                  :cl-csr-2d-game/inputs/gui
