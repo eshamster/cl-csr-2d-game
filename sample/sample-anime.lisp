@@ -14,7 +14,9 @@
                 :find-model-2d-by-label
 
                 :load-anime
-                :add-anime-2d)
+                :add-anime-2d
+                :reset-anime
+                :reverse-anime)
   (:import-from :cl-ps-ecs
                 :make-ecs-entity
                 :add-ecs-entity
@@ -59,12 +61,16 @@
 
 (defun add-anime-entity-by-input ()
   (dolist (client-id (get-client-id-list))
-    (when (key-down-now-p client-id :e)
-      (multiple-value-bind (x y)
-          (get-mouse-pos client-id)
-        (add-anime-entity x y)))))
+    (multiple-value-bind (x y)
+        (get-mouse-pos client-id)
+      (when (key-down-now-p client-id :z)
+        (add-anime-entity x y))
+      (when (key-down-now-p client-id :x)
+        (add-anime-entity x y :kind :repeat))
+      (when (key-down-now-p client-id :c)
+        (add-anime-entity x y :kind :reverse)))))
 
-(defun add-anime-entity (x y)
+(defun add-anime-entity (x y &key (kind :once))
   (let ((entity (make-ecs-entity))
         (width 100)
         (height 100))
@@ -82,9 +88,16 @@
                                                  :y (* height -1/2)))
                   :anime-end-callback
                   (lambda (anime-2d)
-                    (declare (ignore anime-2d))
                     (when (find-the-entity entity)
-                      (register-next-frame-func
-                       (lambda ()
-                         (delete-ecs-entity entity))))))
+                      (ecase kind
+                        (:once
+                         (register-next-frame-func
+                          (lambda ()
+                            (delete-ecs-entity entity))))
+                        (:repeat
+                         (setf kind :once)
+                         (reset-anime anime-2d :stop-p nil))
+                        (:reverse
+                         (setf kind :once)
+                         (reverse-anime anime-2d))))))
     (add-ecs-entity entity)))

@@ -5,7 +5,9 @@
            :anime-2d
            :add-anime-2d
            ;; for internal (another package)
-           :process-anime)
+           :process-anime
+           :reset-anime
+           :reverse-anime)
   (:import-from :cl-csr-2d-game/graphics/2d-geometry
                 :make-image-mesh)
   (:import-from :cl-csr-2d-game/graphics/draw-model-system
