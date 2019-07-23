@@ -58,8 +58,8 @@
                      (uv-height 1.0))
   (check-type texture-name keyword)
   (check-type anime-name keyword)
-  (assert (> x-count 1))
-  (assert (> y-count 1))
+  (assert (> x-count 0))
+  (assert (> y-count 0))
   (let ((one-uv-width (/ uv-width x-count))
         (one-uv-height (/ uv-height y-count))
         (image-array (make-array (* x-count y-count))))
@@ -68,7 +68,7 @@
         (let* ((uv-x (+ offset-uv-x
                         (* x one-uv-width)))
                (uv-y (- 1.0 (+ offset-uv-y
-                               (* y one-uv-height))))
+                               (* (1+ y) one-uv-height))))
                (index (+ x (* y x-count)))
                ;; XXX: Avoid name confliction of image-name
                (image-name (make-keyword
