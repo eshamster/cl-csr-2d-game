@@ -9,7 +9,6 @@
            :model-2d-mesh
            :model-2d-depth
            :model-2d-offset
-           :model-2d-geometry
            :model-2d-label
            :model-2d-target-client-id-list
            :enable-model-2d
