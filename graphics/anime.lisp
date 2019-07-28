@@ -44,8 +44,7 @@
   (go-to-forward-p t)
   (enable-p t)
   (run-anime-p t)
-  (interval-counter 0)
-  (image-caret 0))
+  (timeline 0))
 
 (defvar *anime-table* (make-hash-table)
   "Key: Name as a keyword, Value: anime-info")
@@ -111,22 +110,15 @@ The model is a model-2d with an empty \":mesh\" parameter."
 (defun process-anime (anime-2d)
   (when (and (anime-2d-enable-p anime-2d)
              (anime-2d-run-anime-p anime-2d))
-    (with-slots (interval-counter interval) anime-2d
-      (if (< (1+ interval-counter) interval)
-          (incf interval-counter)
-          (let ((image-caret (anime-2d-image-caret anime-2d))
-                (go-to-forward-p (anime-2d-go-to-forward-p anime-2d))
-                (anime-info (get-anime-info (anime-2d-anime-name anime-2d))))
-            (if (or (and go-to-forward-p (< (1+ image-caret)
-                                            (get-anime-cell-count anime-info)))
-                    (and (not go-to-forward-p) (> image-caret 0)))
-                (progn (setf interval-counter 0)
-                       (switch-anime-image anime-2d
-                                           (if go-to-forward-p
-                                               (1+ image-caret)
-                                               (1- image-caret))))
-                (progn (setf (anime-2d-run-anime-p anime-2d) nil)
-                       (funcall (anime-2d-anime-end-callback anime-2d) anime-2d))))))))
+    (let* ((prev-image-index (calc-image-index anime-2d))
+           (end-point-p (not (proceed-timeline anime-2d)))
+           (image-index (calc-image-index anime-2d)))
+      (when end-point-p
+        (setf (anime-2d-run-anime-p anime-2d) nil)
+        (funcall (anime-2d-anime-end-callback anime-2d) anime-2d)
+        (return-from process-anime))
+      (unless (= prev-image-index image-index)
+        (switch-anime-image anime-2d image-index)))))
 
 (defun enable-anime (entity anime-2d)
   "Enable drawing the model"
@@ -146,15 +138,8 @@ The model is a model-2d with an empty \":mesh\" parameter."
     (disable-model-2d entity :target-model-2d (anime-2d-model anime-2d))))
 
 (defun resume-anime (anime-2d &key (forward-p t))
-  (with-slots (go-to-forward-p interval-counter) anime-2d
-    (let ((reverse-p (or (and (not forward-p) go-to-forward-p)
-                         (and forward-p (not go-to-forward-p)))))
-      (when reverse-p
-        (setf interval-counter
-              (- (anime-2d-interval anime-2d)
-                 interval-counter 1))))
-    (setf (anime-2d-run-anime-p anime-2d) t)
-    (setf go-to-forward-p forward-p)))
+  (setf (anime-2d-run-anime-p anime-2d) t
+        (anime-2d-go-to-forward-p anime-2d) forward-p))
 
 (defun reverse-anime (anime-2d)
   (if (anime-2d-go-to-forward-p anime-2d)
@@ -165,12 +150,11 @@ The model is a model-2d with an empty \":mesh\" parameter."
   (with-slots (go-to-forward-p) anime-2d
     (unless (eq forward-p :asis)
       (setf go-to-forward-p forward-p))
-    (setf (anime-2d-interval-counter anime-2d) 0)
-    (switch-anime-image anime-2d
-                        (if go-to-forward-p
-                            0
-                            (1- (get-anime-cell-count
-                                 (get-anime-info (anime-2d-anime-name anime-2d))))))
+    (setf (anime-2d-timeline anime-2d)
+          (if go-to-forward-p
+              0
+              (get-max-timeline anime-2d)))
+    (switch-anime-image anime-2d (calc-image-index anime-2d))
     (setf (anime-2d-run-anime-p anime-2d) (not stop-p))))
 
 (defun stop-anime (anime)
@@ -188,6 +172,26 @@ The model is a model-2d with an empty \":mesh\" parameter."
   (* (anime-info-x-count anime-info)
      (anime-info-y-count anime-info)))
 
+(defun get-max-timeline (anime-2d)
+  (1- (* (anime-2d-interval anime-2d)
+         (get-anime-cell-count
+          (get-anime-info (anime-2d-anime-name anime-2d))))))
+
+(defun calc-image-index (anime-2d)
+  (floor (/ (anime-2d-timeline anime-2d)
+            (anime-2d-interval anime-2d))))
+
+(defun proceed-timeline (anime-2d)
+  "Increment or decrement animation timeline.
+Returns nil if the timeline has been arrived at end point"
+  (with-slots (timeline (forward-p go-to-forward-p)) anime-2d
+    (cond ((and forward-p (= timeline (get-max-timeline anime-2d)))
+           nil)
+          ((and (not forward-p) (= timeline 0))
+           nil)
+          (t (incf timeline (if forward-p 1 -1))
+             t))))
+
 (defun switch-anime-image (anime-2d next-counter)
   (let ((model (anime-2d-model anime-2d))
         (anime-info (get-anime-info (anime-2d-anime-name anime-2d))))
@@ -197,7 +201,6 @@ The model is a model-2d with an empty \":mesh\" parameter."
                 (>= next-counter max-count))
         (error "The target anime counter is invalid (Max: ~D, Got: ~D)"
                max-count next-counter)))
-    (setf (anime-2d-image-caret anime-2d) next-counter)
     (let ((image-array (anime-info-image-array anime-info)))
       (setf (model-2d-mesh model)
             (make-image-mesh :image-name (aref image-array next-counter)
