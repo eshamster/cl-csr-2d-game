@@ -1,7 +1,7 @@
 ("quicklisp" .
  (:class qlot.source.ql:source-ql-all
   :initargs (:distribution "http://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
-  :version "2019-05-21"))
+  :version "2019-07-11"))
 ("ps-experiment" .
  (:class qlot.source.github:source-github
   :initargs (:project-name "ps-experiment" :repos "eshamster/ps-experiment" :ref nil :branch nil :tag nil)
@@ -19,7 +19,7 @@
 ("proto-cl-client-side-rendering" .
  (:class qlot.source.github:source-github
   :initargs (:project-name "proto-cl-client-side-rendering" :repos "eshamster/proto-cl-client-side-rendering" :ref nil :branch nil :tag nil)
-  :version "github-54bf0fc1c1901a0d8446517d74c0ff84b9a64f7c"
+  :version "github-da9cedd7137434e573d2bb2ec7721fd9280f4d8f"
   :repos "eshamster/proto-cl-client-side-rendering"
-  :url "https://github.com/eshamster/proto-cl-client-side-rendering/archive/54bf0fc1c1901a0d8446517d74c0ff84b9a64f7c.tar.gz"
-  :ref "54bf0fc1c1901a0d8446517d74c0ff84b9a64f7c"))
+  :url "https://github.com/eshamster/proto-cl-client-side-rendering/archive/da9cedd7137434e573d2bb2ec7721fd9280f4d8f.tar.gz"
+  :ref "da9cedd7137434e573d2bb2ec7721fd9280f4d8f"))
