@@ -169,7 +169,6 @@
 (defun start-move-to (entity switcher direction)
   (assert (or (eq direction :left)
               (eq direction :right)))
-  (format t "start to ~D~%" direction)
   (let ((prev-direction (get-entity-param entity :direction)))
     (if (eq direction prev-direction)
         (resume-anime (get-current-anime-2d switcher) :forward-p t)
@@ -180,5 +179,4 @@
   (assert (or (eq direction :left)
               (eq direction :right)))
   (when (eq direction (get-entity-param entity :direction))
-    (format t "stop to ~D~%" direction)
     (resume-anime (get-current-anime-2d switcher) :forward-p nil)))
