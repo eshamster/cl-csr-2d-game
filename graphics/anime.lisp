@@ -4,10 +4,13 @@
   (:export :load-anime
            :anime-2d
            :add-anime-2d
+           :reset-anime
+           :resume-anime
+           :reverse-anime
            ;; for internal (another package)
            :process-anime
-           :reset-anime
-           :reverse-anime)
+           :enable-anime
+           :disable-anime)
   (:import-from :cl-csr-2d-game/graphics/2d-geometry
                 :make-image-mesh)
   (:import-from :cl-csr-2d-game/graphics/draw-model-system
@@ -39,6 +42,7 @@
   width height color
   ;; state parameter
   (go-to-forward-p t)
+  (enable-p t)
   (run-anime-p t)
   (interval-counter 0)
   (image-caret 0))
@@ -105,7 +109,8 @@ The model is a model-2d with an empty \":mesh\" parameter."
     anime-2d))
 
 (defun process-anime (anime-2d)
-  (when (anime-2d-run-anime-p anime-2d)
+  (when (and (anime-2d-enable-p anime-2d)
+             (anime-2d-run-anime-p anime-2d))
     (with-slots (interval-counter interval) anime-2d
       (if (< (1+ interval-counter) interval)
           (incf interval-counter)
@@ -123,55 +128,38 @@ The model is a model-2d with an empty \":mesh\" parameter."
                 (progn (setf (anime-2d-run-anime-p anime-2d) nil)
                        (funcall (anime-2d-anime-end-callback anime-2d) anime-2d))))))))
 
-;; --- internal --- ;;
-
-(defun get-anime-info (name)
-  (let ((info (gethash name *anime-table*)))
-    (unless info
-      (error "The anime named \"~A\" has not been loaded." name))
-    info))
-
-(defun get-anime-cell-count (anime-info)
-  (* (anime-info-x-count anime-info)
-     (anime-info-y-count anime-info)))
-
 (defun enable-anime (entity anime-2d)
   "Enable drawing the model"
   (check-type entity ecs-entity)
   (check-type anime-2d anime-2d)
-  (enable-model-2d entity
-                   :target-model-2d (anime-2d-model anime-2d)))
+  (unless (anime-2d-enable-p anime-2d)
+    (setf (anime-2d-enable-p anime-2d) t)
+    (enable-model-2d entity :target-model-2d (anime-2d-model anime-2d))))
 
 (defun disable-anime (entity anime-2d)
   "Stop the anime and disable drawing the model"
   (check-type entity ecs-entity)
   (check-type anime-2d anime-2d)
-  (stop-anime anime-2d)
-  (disable-model-2d entity
-                    :target-model-2d (anime-2d-model anime-2d)))
+  (when (anime-2d-enable-p anime-2d)
+    (setf (anime-2d-enable-p anime-2d) nil)
+    (stop-anime anime-2d)
+    (disable-model-2d entity :target-model-2d (anime-2d-model anime-2d))))
 
-(defun start-anime (anime-2d)
+(defun resume-anime (anime-2d &key (forward-p t))
   (with-slots (go-to-forward-p interval-counter) anime-2d
-    (unless go-to-forward-p
-      (setf interval-counter
-            (- (anime-2d-interval anime-2d)
-               interval-counter 1)))
+    (let ((reverse-p (or (and (not forward-p) go-to-forward-p)
+                         (and forward-p (not go-to-forward-p)))))
+      (when reverse-p
+        (setf interval-counter
+              (- (anime-2d-interval anime-2d)
+                 interval-counter 1))))
     (setf (anime-2d-run-anime-p anime-2d) t)
-    (setf go-to-forward-p t)))
-
-(defun start-reversed-anime (anime-2d)
-  (with-slots (go-to-forward-p interval-counter) anime-2d
-    (when go-to-forward-p
-      (setf interval-counter
-            (- (anime-2d-interval anime-2d)
-               interval-counter 1)))
-    (setf (anime-2d-run-anime-p anime-2d) t)
-    (setf go-to-forward-p nil)))
+    (setf go-to-forward-p forward-p)))
 
 (defun reverse-anime (anime-2d)
   (if (anime-2d-go-to-forward-p anime-2d)
-      (start-reversed-anime anime-2d)
-      (start-anime anime-2d)))
+      (resume-anime anime-2d :forward-p nil)
+      (resume-anime anime-2d :forward-p t)))
 
 (defun reset-anime (anime-2d &key (stop-p t) (forward-p :asis))
   (with-slots (go-to-forward-p) anime-2d
@@ -187,6 +175,18 @@ The model is a model-2d with an empty \":mesh\" parameter."
 
 (defun stop-anime (anime)
   (setf (anime-2d-run-anime-p anime) nil))
+
+;; --- internal --- ;;
+
+(defun get-anime-info (name)
+  (let ((info (gethash name *anime-table*)))
+    (unless info
+      (error "The anime named \"~A\" has not been loaded." name))
+    info))
+
+(defun get-anime-cell-count (anime-info)
+  (* (anime-info-x-count anime-info)
+     (anime-info-y-count anime-info)))
 
 (defun switch-anime-image (anime-2d next-counter)
   (let ((model (anime-2d-model anime-2d))

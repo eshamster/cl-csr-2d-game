@@ -14,5 +14,6 @@
       (:include ecs-system
                 (target-component-types '(anime-2d))
                 (process (lambda (entity)
-                           (with-ecs-components (anime-2d) entity
+                           (do-ecs-components-of-entity
+                               (anime-2d entity :component-type 'anime-2d)
                              (process-anime anime-2d)))))))
