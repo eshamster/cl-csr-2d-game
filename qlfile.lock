@@ -19,7 +19,7 @@
 ("proto-cl-client-side-rendering" .
  (:class qlot.source.github:source-github
   :initargs (:project-name "proto-cl-client-side-rendering" :repos "eshamster/proto-cl-client-side-rendering" :ref nil :branch nil :tag nil)
-  :version "github-da9cedd7137434e573d2bb2ec7721fd9280f4d8f"
+  :version "github-d3088cf3cf5ac1f91d34e8550aaecf05d5245b75"
   :repos "eshamster/proto-cl-client-side-rendering"
-  :url "https://github.com/eshamster/proto-cl-client-side-rendering/archive/da9cedd7137434e573d2bb2ec7721fd9280f4d8f.tar.gz"
-  :ref "da9cedd7137434e573d2bb2ec7721fd9280f4d8f"))
+  :url "https://github.com/eshamster/proto-cl-client-side-rendering/archive/d3088cf3cf5ac1f91d34e8550aaecf05d5245b75.tar.gz"
+  :ref "d3088cf3cf5ac1f91d34e8550aaecf05d5245b75"))

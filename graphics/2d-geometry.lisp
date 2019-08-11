@@ -12,7 +12,7 @@
            ; :make-solid-polygon
            :make-image-mesh
            ; :make-texture-model-promise
-           ; :make-text-model-promise
+           :make-text-mesh
            ; :change-model-color
            ; :change-geometry-uvs
 
@@ -27,7 +27,9 @@
                 :draw-arc
                 :draw-circle
                 :draw-line
-                :draw-image))
+                :draw-image
+                :draw-text
+                :calc-text-width))
 (in-package :cl-csr-2d-game/graphics/2d-geometry)
 
 ;; --- rectangle --- ;;
@@ -106,3 +108,29 @@ The image-name should be registered by proto-cl-client-rendering:load-image in a
                 :width width
                 :height height
                 :rotate rotate)))
+
+;; --- text --- ;;
+
+(defun make-text-mesh (&key
+                         font-name text
+                         (color #xffffff) width height)
+    "Make a mesh textured by a text.
+The font-name should be registered by proto-cl-client-rendering:load-font in advance.
+If width is nil, it will be calculated by height to keep aspect ration of each character."
+    (assert height)
+    (unless width
+      (setf width (calc-text-width :font-name font-name
+                                   :text text
+                                   :height height)))
+    (lambda (&key id x y depth rotate)
+      ;; TODO: consider rotate
+      (declare (ignore rotate))
+      (draw-text :id id
+                 :font-name font-name
+                 :text text
+                 :x x
+                 :y y
+                 :depth depth
+                 :color color
+                 :width width
+                 :height height)))

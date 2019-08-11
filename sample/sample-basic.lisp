@@ -19,6 +19,7 @@
                 :make-arc-mesh
                 :make-circle-mesh
                 :make-image-mesh
+                :make-text-mesh
                 :update-model-2d
                 :find-model-2d-by-label)
   (:import-from :cl-ps-ecs
@@ -39,7 +40,8 @@
 
                 :load-texture
                 :load-image
-                :make-image-uv))
+                :make-image-uv
+                :load-font))
 (in-package :sample-cl-csr-2d-game/sample-basic)
 
 (defvar *temp-counter* 0)
@@ -88,7 +90,10 @@
               :rotate-speed 1/6)
   (init-image :image-name :b
               :x 620 :y 100
-              :rotate-speed -1/6))
+              :rotate-speed -1/6)
+
+  (load-sample-font)
+  (init-text))
 
 (defun load-images ()
   (load-texture :name :sample
@@ -111,6 +116,14 @@
   (load-image :image-name :b
               :texture-name :multiple-image
               :uv (make-image-uv :x 0.5 :width 0.5)))
+
+(defun load-sample-font ()
+  (load-texture :name :sample-font
+                :path "font.png"
+                :alpha-path "font_alpha.png")
+  (load-font :name :sample-font
+             :texture-name :sample-font
+             :json-path "font.json"))
 
 ;; --- rect --- ;;
 
@@ -272,6 +285,23 @@
                     :depth 0)
      (make-script-2d :func (lambda (entity)
                              (update-rect entity rotate-speed))))
+    (add-ecs-entity entity)))
+
+;; --- text --- ;;
+
+(defun init-text ()
+  (let ((entity (make-ecs-entity))
+        (x 10)
+        (y 500)
+        (height 60))
+    (add-ecs-component-list
+     entity
+     (make-point-2d :x x :y y)
+     (make-model-2d :mesh (make-text-mesh :font-name :sample-font
+                                          :text "Sample text-aaa"
+                                          :height height
+                                          :color #xffffff)
+                    :depth 0))
     (add-ecs-entity entity)))
 
 ;; --- ;;
