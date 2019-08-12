@@ -4,7 +4,8 @@
   (:export :start
            :stop
            :start-csr-game-loop
-           :stop-csr-game-loop)
+           :stop-csr-game-loop
+           :get-ningle-app)
   (:import-from :cl-ps-ecs
                 :ecs-main)
   (:import-from :cl-csr-2d-game/core/game-state
@@ -53,6 +54,9 @@
 ;; --- static --- ;;
 
 (defvar *ningle-app* (make-instance 'ningle:<app>))
+
+(defun get-ningle-app ()
+  *ningle-app*)
 
 (defun init-ningle-app (&key resource-dir)
   (setf (ningle:route *ningle-app* "/" :method :GET)

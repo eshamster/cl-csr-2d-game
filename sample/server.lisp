@@ -2,10 +2,13 @@
   (:use :cl
         :cl-markup)
   (:export :start-sample
-           :stop-sample)
+           :stop-sample
+           :get-sample-list
+           :get-current-sample)
   (:import-from :cl-csr-2d-game
                 :start
-                :stop)
+                :stop
+                :get-ningle-app)
   (:import-from :sample-cl-csr-2d-game/sample-anime
                 :init-sample-anime
                 :update-sample-anime)
@@ -37,14 +40,24 @@
                       :anime (init-sample-anime update-sample-anime)
                       :debug-draw (init-sample-debug-draw update-sample-debug-draw))))
 
+(defvar *current-sample* nil)
+
+(defvar *current-port* 5000)
+
+(defun get-sample-list ()
+  (hash-table-keys *sample-func-table*))
+
+(defun get-current-sample ()
+  *current-sample*)
+
 (defun get-sample-funcs (type)
   (let ((result (gethash type *sample-func-table*)))
     (unless result
       (error "\"~S\" is not recognized sample type. ~S are allowed."
-             type (hash-table-keys *sample-func-table*)))
+             type (get-sample-list)))
     result))
 
-(defun start-sample (&key (port 5000) (type :basic))
+(defun start-sample (&key (port *current-port*) (type :basic))
   (stop-sample)
   (setf *parent-entity* (make-ecs-entity))
   (stack-default-ecs-entity-parent *parent-entity*)
@@ -54,7 +67,9 @@
            :root-dir (asdf:component-pathname
                       (asdf:find-system :sample-cl-csr-2d-game))
            :init-func init-func
-           :update-func update-func)))
+           :update-func update-func))
+  (setf *current-sample* type
+        *current-port* port))
 
 (defun stop-sample ()
   (when *parent-entity*
@@ -68,5 +83,6 @@
                      count))
                (delete-ecs-entity parent))))
     (setf *parent-entity* nil))
+  (setf *current-sample* nil)
   (stop))
 
