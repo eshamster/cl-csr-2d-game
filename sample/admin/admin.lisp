@@ -1,7 +1,6 @@
 (defpackage sample-cl-csr-2d-game/admin/admin
   (:use :cl
         :cl-markup)
-  (:export :init-admin-routes)
   (:import-from :sample-cl-csr-2d-game/server
                 :get-sample-list
                 :get-current-sample
