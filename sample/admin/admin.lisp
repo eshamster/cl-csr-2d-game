@@ -33,7 +33,6 @@
 (progn
   (defun make-error-route ()
     (lambda (params)
-      (print params)
       (setf (response-status *response*) 400)
       (with-output-to-string (str)
         (let ((cl-markup:*output-stream* str))
