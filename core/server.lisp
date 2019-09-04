@@ -27,6 +27,7 @@
 
 (defun start (&key
                 (port 5000)
+                (address "0.0.0.0")
                 root-dir
                 (init-func (lambda ()))
                 (update-func (lambda ())))
@@ -41,7 +42,8 @@
             (make-client-side-rendering-middleware
              :resource-root resource-dir)
             *ningle-app*)
-           :port port)))
+           :port port
+           :address address)))
   (start-csr-game-loop :init-func init-func
                        :update-func update-func))
 
