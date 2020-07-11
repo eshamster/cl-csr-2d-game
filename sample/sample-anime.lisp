@@ -33,7 +33,7 @@
                 :find-the-entity
                 :with-ecs-components
                 :register-next-frame-func)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :log-console
 
                 :get-client-id-list
@@ -52,8 +52,7 @@
 
 (defun init-anime ()
   (load-texture :name :sample-explosion
-                :path "sample_explosion.png"
-                :alpha-path "sample_explosion_alpha.png")
+                :path "sample_explosion.png")
   (load-anime :anime-name :explosion
               :texture-name :sample-explosion
               :x-count 5 :y-count 2
@@ -61,8 +60,7 @@
   (init-anime-entity-creator)
 
   (load-texture :name :sample-moving
-                :path "sample_moving.png"
-                :alpha-path "sample_moving_alpha.png")
+                :path "sample_moving.png")
   (load-anime :anime-name :move-right
               :texture-name :sample-moving
               :x-count 4 :y-count 1

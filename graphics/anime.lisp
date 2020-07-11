@@ -21,7 +21,7 @@
                 :find-model-2d-by-label)
   (:import-from :alexandria
                 :make-keyword)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :load-image
                 :make-image-uv))
 (in-package :cl-csr-2d-game/graphics/anime)

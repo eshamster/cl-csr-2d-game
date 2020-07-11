@@ -14,7 +14,7 @@
                 :init-default-systems)
   (:import-from :cl-csr-2d-game/core/update-frequency
                 :process-update-frequency)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :start-game-loop
                 :stop-game-loop
                 :ensure-js-files

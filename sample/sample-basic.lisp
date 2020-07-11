@@ -27,7 +27,7 @@
                 :add-ecs-entity
                 :add-ecs-component-list
                 :with-ecs-components)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :draw-rect
                 :draw-circle
                 :log-console
@@ -102,14 +102,12 @@
               :texture-name :sample)
 
   (load-texture :name :sample-with-alpha
-                :path "sample.png"
-                :alpha-path "sample_alpha.png")
+                :path "sample.png")
   (load-image :image-name :sample-with-alpha
               :texture-name :sample-with-alpha)
 
   (load-texture :name :multiple-image
-                :path "multiple_image.png"
-                :alpha-path "multiple_image_alpha.png")
+                :path "multiple_image.png")
   (load-image :image-name :a
               :texture-name :multiple-image
               :uv (make-image-uv :width 0.5))
@@ -118,12 +116,8 @@
               :uv (make-image-uv :x 0.5 :width 0.5)))
 
 (defun load-sample-font ()
-  (load-texture :name :sample-font
-                :path "font.png"
-                :alpha-path "font_alpha.png")
   (load-font :name :sample-font
-             :texture-name :sample-font
-             :json-path "font.json"))
+             :font-name "Arial"))
 
 ;; --- rect --- ;;
 
@@ -292,14 +286,13 @@
 (defun init-text ()
   (let ((entity (make-ecs-entity))
         (x 10)
-        (y 500)
-        (height 60))
+        (y 500))
     (add-ecs-component-list
      entity
      (make-point-2d :x x :y y)
      (make-model-2d :mesh (make-text-mesh :font-name :sample-font
                                           :text "Sample text-aaa"
-                                          :height height
+                                          :font-size 18
                                           :color #xffffff)
                     :depth 0))
     (add-ecs-entity entity)))

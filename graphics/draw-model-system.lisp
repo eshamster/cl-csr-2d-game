@@ -24,7 +24,7 @@
                 :make-point-2d)
   (:import-from :cl-csr-2d-game/core/update-frequency
                 :draw-in-this-frame-p)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :skip-drawing-in-this-frame
                 :*target-client-id-list*))
 (in-package :cl-csr-2d-game/graphics/draw-model-system)

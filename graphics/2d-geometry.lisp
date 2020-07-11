@@ -22,14 +22,13 @@
            :make-rect-mesh
            :make-arc-mesh
            :make-circle-mesh)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :draw-rect
                 :draw-arc
                 :draw-circle
                 :draw-line
                 :draw-image
-                :draw-text
-                :calc-text-width))
+                :draw-text))
 (in-package :cl-csr-2d-game/graphics/2d-geometry)
 
 ;; --- rectangle --- ;;
@@ -97,7 +96,7 @@
                           image-name
                           (color #xffffff) width height)
   "Make a mesh textured by a image.
-The image-name should be registered by proto-cl-client-rendering:load-image in advance."
+The image-name should be registered by cl-csr:load-image in advance."
   (lambda (&key id x y depth rotate)
     (draw-image :id id
                 :image-name image-name
@@ -112,16 +111,16 @@ The image-name should be registered by proto-cl-client-rendering:load-image in a
 ;; --- text --- ;;
 
 (defun make-text-mesh (&key
-                         font-name text
-                         (color #xffffff) width height)
+                         font-name
+                         text
+                         (color #xffffff)
+                         font-size
+                         (align-horiz :left)
+                         (align-vert :top))
     "Make a mesh textured by a text.
-The font-name should be registered by proto-cl-client-rendering:load-font in advance.
+The font-name should be registered by cl-csr:load-font in advance.
 If width is nil, it will be calculated by height to keep aspect ration of each character."
-    (assert height)
-    (unless width
-      (setf width (calc-text-width :font-name font-name
-                                   :text text
-                                   :height height)))
+    (assert font-size)
     (lambda (&key id x y depth rotate)
       ;; TODO: consider rotate
       (declare (ignore rotate))
@@ -132,5 +131,6 @@ If width is nil, it will be calculated by height to keep aspect ration of each c
                  :y y
                  :depth depth
                  :color color
-                 :width width
-                 :height height)))
+                 :font-size font-size
+                 :align-horiz align-horiz
+                 :align-vert align-vert)))
