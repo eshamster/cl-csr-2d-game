@@ -19,7 +19,7 @@
 ("cl-csr" .
  (:class qlot.source.github:source-github
   :initargs (:project-name "cl-csr" :repos "eshamster/cl-csr" :ref nil :branch nil :tag nil)
-  :version "github-724165dc3f0088b67fc974d1d7bc4cce9fd049f1"
+  :version "github-1c0262a2b372cbd82255237ba2f7b617d99ce38e"
   :repos "eshamster/cl-csr"
-  :url "https://github.com/eshamster/cl-csr/archive/724165dc3f0088b67fc974d1d7bc4cce9fd049f1.tar.gz"
-  :ref "724165dc3f0088b67fc974d1d7bc4cce9fd049f1"))
+  :url "https://github.com/eshamster/cl-csr/archive/1c0262a2b372cbd82255237ba2f7b617d99ce38e.tar.gz"
+  :ref "1c0262a2b372cbd82255237ba2f7b617d99ce38e"))
