@@ -70,8 +70,8 @@
       (dotimes (x x-count)
         (let* ((uv-x (+ offset-uv-x
                         (* x one-uv-width)))
-               (uv-y (- 1.0 (+ offset-uv-y
-                               (* (1+ y) one-uv-height))))
+               (uv-y (+ offset-uv-y
+                        (* y one-uv-height)))
                (index (+ x (* y x-count)))
                ;; XXX: Avoid name confliction of image-name
                (image-name (make-keyword
