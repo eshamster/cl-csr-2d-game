@@ -21,7 +21,7 @@
                 :find-model-2d-by-label)
   (:import-from :alexandria
                 :make-keyword)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :load-image
                 :make-image-uv))
 (in-package :cl-csr-2d-game/graphics/anime)
@@ -70,8 +70,8 @@
       (dotimes (x x-count)
         (let* ((uv-x (+ offset-uv-x
                         (* x one-uv-width)))
-               (uv-y (- 1.0 (+ offset-uv-y
-                               (* (1+ y) one-uv-height))))
+               (uv-y (+ offset-uv-y
+                        (* y one-uv-height)))
                (index (+ x (* y x-count)))
                ;; XXX: Avoid name confliction of image-name
                (image-name (make-keyword

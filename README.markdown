@@ -2,8 +2,8 @@
 
 # Cl-Csr-2d-Game - A library to create 2d game using client side rendering (CSR) library.
 
-- For client side rendering, use [proto-cl-client-side-rendering](https://github.com/eshamster/proto-cl-client-side-rendering)
-- This is created from clone of [cl-web-2d-game](proto-cl-client-side-rendering)
+- For client side rendering, use [cl-csr](https://github.com/eshamster/cl-csr)
+- This is created from clone of [cl-web-2d-game](https://github.com/eshamster/cl-web-2d-game)
     - `cl-web-2d-game` runs on browser as JavaScript code
     - `cl-csr-2d-game` runs on server as Common Lisp code
 

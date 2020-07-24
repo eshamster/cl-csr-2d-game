@@ -14,7 +14,7 @@ install:
   - curl -L https://raw.githubusercontent.com/snmsts/roswell/release/scripts/install-for-ci.sh | sh
   - ros install eshamster/ps-experiment
   - ros install eshamster/cl-ps-ecs
-  - ros install eshamster/proto-cl-client-side-rendering
+  - ros install eshamster/cl-csr
   - ros install fukamachi/rove
   - ros -e '(ql:register-local-projects)' -q
 

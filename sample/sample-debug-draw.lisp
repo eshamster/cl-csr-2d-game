@@ -2,7 +2,7 @@
   (:use :cl
         :cl-ps-ecs
         :cl-csr-2d-game
-        :proto-cl-client-side-rendering)
+        :cl-csr)
   (:export :init-sample-debug-draw
            :update-sample-debug-draw))
 (in-package :sample-cl-csr-2d-game/sample-debug-draw)

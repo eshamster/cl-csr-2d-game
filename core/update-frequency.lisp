@@ -3,7 +3,7 @@
   (:export :process-update-frequency
            :set-update-frequency
            :draw-in-this-frame-p)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :set-fps))
 (in-package :cl-csr-2d-game/core/update-frequency)
 

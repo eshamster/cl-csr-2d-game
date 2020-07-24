@@ -18,7 +18,7 @@
   (:import-from :sample-cl-csr-2d-game/sample-debug-draw
                 :init-sample-debug-draw
                 :update-sample-debug-draw)
-  (:import-from :proto-cl-client-side-rendering
+  (:import-from :cl-csr
                 :ensure-js-files
                 :make-src-list-for-script-tag
                 :make-client-side-rendering-middleware)

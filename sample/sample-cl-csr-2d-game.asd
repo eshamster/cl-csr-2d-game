@@ -19,6 +19,6 @@
                :alexandria
                :ningle
                :quri
-               :proto-cl-client-side-rendering
+               :cl-csr
                :sample-cl-csr-2d-game/main)
   :description "A sample of Client side rendering in Common Lisp")
