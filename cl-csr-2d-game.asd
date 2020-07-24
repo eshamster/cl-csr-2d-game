@@ -19,8 +19,8 @@
                :ps-experiment
                :ningle
                :cl-ps-ecs
-               :cl-csr-2d-game/main
-               :proto-cl-client-side-rendering)
+               :cl-csr
+               :cl-csr-2d-game/main)
   :description "A library to create 2d game using Parenscript and three.js"
   :long-description
   #.(with-open-file (stream (merge-pathnames
